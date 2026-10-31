@@ -181,13 +181,16 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
       rail.addEventListener('focusin', focusPanel);
       let alive = true;
       const refresh = () => { if (alive) ScrollTrigger.refresh(); };
-      const images = Array.from(rail.querySelectorAll('img'));
-      images.forEach(image => image.addEventListener('load', refresh));
-      void document.fonts.ready.then(() => { if (alive) { refresh(); restoreHash(); } });
+      // Every panel image has intrinsic dimensions, so late image loads do not
+      // change the rail geometry. Refreshing the pinned trigger for each lazy
+      // image can move its spacer while Lenis is still scrolling, which makes
+      // the end boundary jump when the journey is entered again in reverse.
+      // Font readiness already increments layoutRevision and recreates this
+      // trigger once with the final measurements.
+      void document.fonts.ready.then(() => { if (alive) restoreHash(); });
       window.addEventListener('pageshow', refresh);
       return () => {
         alive = false;
-        images.forEach(image => image.removeEventListener('load', refresh));
         window.removeEventListener('pageshow', refresh);
         window.removeEventListener('muguetli:anchor', navigate);
         window.removeEventListener('hashchange', restoreHash);
