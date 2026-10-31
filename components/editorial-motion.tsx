@@ -2,20 +2,26 @@
 
 import { useEffect, useRef } from 'react';
 import { useMotionPreference } from './motion-preference';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useArrivalReady } from './arrival-ready';
 import type { Locale } from '@/lib/muguetli';
 import styles from './editorial-motion.module.css';
 
 export function EditorialMotion({ children, locale = 'en' }: { children: React.ReactNode; locale?: Locale }) {
   const ref = useRef<HTMLDivElement>(null);
   const { reduced: paused } = useMotionPreference();
+  const arrivalReady = useArrivalReady();
 
   useEffect(() => {
-    if (paused || !ref.current) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    media.add({ motion: '(prefers-reduced-motion: no-preference)', desktop: '(min-width: 900px)' }, (context) => {
+    if (paused || !arrivalReady || !ref.current) return;
+    let cancelled = false;
+    let cleanup = () => {};
+    void Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapModule, triggerModule]) => {
+      if (cancelled || !ref.current) return;
+      const { gsap } = gsapModule;
+      const { ScrollTrigger } = triggerModule;
+      gsap.registerPlugin(ScrollTrigger);
+      const media = gsap.matchMedia();
+      media.add({ motion: '(prefers-reduced-motion: no-preference)', desktop: '(min-width: 900px)' }, (context) => {
       if (!context.conditions?.motion) return;
       const desktop = context.conditions.desktop;
       const root = ref.current!;
@@ -65,20 +71,22 @@ export function EditorialMotion({ children, locale = 'en' }: { children: React.R
         });
       }, root);
       return () => { scoped.revert(); delete root.dataset.motion; };
+      });
+      let alive = true;
+      const refresh = () => { if (alive) ScrollTrigger.refresh(); };
+      void document.fonts.ready.then(refresh);
+      const images = Array.from(ref.current.querySelectorAll('img'));
+      images.forEach(img => img.addEventListener('load', refresh));
+      window.addEventListener('pageshow', refresh);
+      cleanup = () => {
+        alive = false;
+        images.forEach(img => img.removeEventListener('load', refresh));
+        window.removeEventListener('pageshow', refresh);
+        media.revert();
+      };
     });
-    let alive = true;
-    const refresh = () => { if (alive) ScrollTrigger.refresh(); };
-    void document.fonts.ready.then(refresh);
-    const images = Array.from(ref.current.querySelectorAll('img'));
-    images.forEach(img => img.addEventListener('load', refresh));
-    window.addEventListener('pageshow', refresh);
-    return () => {
-      alive = false;
-      images.forEach(img => img.removeEventListener('load', refresh));
-      window.removeEventListener('pageshow', refresh);
-      media.revert();
-    };
-  }, [paused, locale]);
+    return () => { cancelled = true; cleanup(); };
+  }, [paused, locale, arrivalReady]);
 
   return <div ref={ref} className={styles.root}>
     {children}

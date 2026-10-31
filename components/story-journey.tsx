@@ -3,14 +3,13 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowDown, ArrowUpRight, BookOpen, Tablet } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { literaryElements, bookExcerpts } from '@/lib/book-story';
 import { editorial, type Collection } from '@/lib/editorial';
 import { t, type Locale } from '@/lib/muguetli';
 import { BookQuote } from './book-quote';
 import { ScarfGallery } from './scarf-gallery';
 import { useMotionPreference } from './motion-preference';
+import { useArrivalReady } from './arrival-ready';
 import styles from './story-journey.module.css';
 
 function CollectionSigil({ element, index }: { element: string; index: number }) {
@@ -71,6 +70,7 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const { reduced } = useMotionPreference();
+  const arrivalReady = useArrivalReady();
   const [layoutRevision, setLayoutRevision] = useState(0);
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -93,12 +93,18 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
   ];
 
   useLayoutEffect(() => {
-    if (reduced || !root.current || !track.current) return;
-    gsap.registerPlugin(ScrollTrigger);
+    if (reduced || !arrivalReady || !root.current || !track.current) return;
     const host = root.current;
     const rail = track.current;
-    const media = gsap.matchMedia();
-    media.add('(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)', () => {
+    let cancelled = false;
+    let cleanup = () => {};
+    void Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapModule, triggerModule]) => {
+      if (cancelled) return;
+      const { gsap } = gsapModule;
+      const { ScrollTrigger } = triggerModule;
+      gsap.registerPlugin(ScrollTrigger);
+      const media = gsap.matchMedia();
+      media.add('(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)', () => {
       const panels = Array.from(rail.querySelectorAll<HTMLElement>('[data-panel]'));
       host.style.setProperty('--panel-width', `${host.clientWidth}px`);
       host.dataset.horizontal = 'true';
@@ -189,19 +195,24 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
         rail.removeEventListener('focusin', focusPanel);
         delete host.dataset.horizontal;
       };
+      });
+      cleanup = () => {
+        media.revert();
+        rail.querySelectorAll<HTMLElement>('[data-panel-reveal], [data-panel-art]').forEach(item => {
+          ['opacity', 'transform', 'translate', 'rotate', 'scale'].forEach(property => item.style.removeProperty(property));
+        });
+      };
     });
     return () => {
-      media.revert();
-      rail.querySelectorAll<HTMLElement>('[data-panel-reveal], [data-panel-art]').forEach(item => {
-        ['opacity', 'transform', 'translate', 'rotate', 'scale'].forEach(property => item.style.removeProperty(property));
-      });
+      cancelled = true;
+      cleanup();
     };
-  }, [reduced, fa, collections.length, layoutRevision]);
+  }, [reduced, fa, collections.length, layoutRevision, arrivalReady]);
 
   useEffect(() => {
     const host = root.current;
     const chapter = host?.querySelector<HTMLElement>('[data-collection-chapter]');
-    if (!chapter || reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!chapter || reduced || !arrivalReady || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     let frame = 0;
     const writePointer = (x: number, y: number) => {
       cancelAnimationFrame(frame);
@@ -230,7 +241,7 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
       chapter.removeEventListener('pointermove', move);
       chapter.removeEventListener('pointerleave', reset);
     };
-  }, [reduced, collections.length]);
+  }, [reduced, collections.length, arrivalReady]);
 
   return <section ref={root} className={styles.journey} data-journey data-active-index="0" aria-label={copy('From the elements to the everyday', 'از عناصر تا زندگی')}>
     <div className={styles.navigation}>
@@ -242,7 +253,7 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
       {literaryElements.map((element, i) => <article id={`chapter-${element.id}`} tabIndex={-1} key={element.id} data-panel data-surface="light" className={`${styles.panel} ${styles.element}`}>
         <div className={styles.elementArt}>
           <span className={styles.giantWord} aria-hidden="true">{t(element.name, locale)}</span>
-          <img src={`/media/four-mothers/${element.id}-key.webp`} alt="" width={1280} height={720} loading="lazy" />
+          <img src={`/media/four-mothers/${element.id}-key.webp`} alt="" width={1280} height={720} loading="lazy" decoding="async" />
           <span className={styles.artCaption}>MUGUETLI / {String(i + 1).padStart(2, '0')}</span>
         </div>
         <div className={styles.elementCopy}>
@@ -294,17 +305,25 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
       </article>}
 
       <article id="books" tabIndex={-1} data-panel data-surface="light" className={`${styles.panel} ${styles.book}`}>
-        <div className={styles.bookIdentity} data-panel-reveal>
-          <p className={styles.eyebrow}>{copy('THE STORY BEFORE THE SILK', 'داستان، پیش از پوشیدن')}</p>
-          <h2 lang="fa" dir="rtl">{book?.originalTitle || 'زنگله‌ام'}</h2>
-          {!fa && <p className={styles.transliteration}>Zangole’am</p>}
-          <p className={styles.subtitle}>{book && t(book.subtitle, locale)}</p>
-          <span className={styles.byline}>{book && t(book.author, locale)} · {copy('Originally written in Persian', 'به زبان فارسی')}</span>
-          <Link href={`/${locale}/books`} className={styles.textLink}>{copy('Enter the book', 'ورود به جهان کتاب')}<ArrowUpRight size={17} /></Link>
+        <div className={styles.bookArtwork} data-panel-art>
+          <picture>
+            <source media="(max-width: 700px)" srcSet="/media/books/book-banner-mobile-v1.webp" width={1024} height={1536} />
+            <img src="/media/books/book-banner-desktop-v1.webp" width={1536} height={1024} loading="lazy" decoding="async" alt={copy('Persian and English books on stone stands, surrounded by clouds, sea and lily of the valley', 'کتاب‌های فارسی و انگلیسی روی استندهای سنگی، میان ابرها، دریا و گل‌های موگه')} />
+          </picture>
         </div>
-        <div className={styles.bookPassage} data-panel-reveal>
-          <p>{book && t(book.synopsis, locale)}</p>
-          <div className={styles.bookQuote}><p className={styles.eyebrow}>{copy('THE ALCHEMY OF SUFFERING', 'جواهرِ وجود و کیمیاگریِ رنج')}</p><BookQuote excerpt={bookExcerpts.rebirth} locale={locale} compact /></div>
+        <div className={styles.bookCopy}>
+          <div className={styles.bookIdentity} data-panel-reveal>
+            <p className={styles.eyebrow}>{copy('THE STORY BEFORE THE SILK', 'داستان، پیش از پوشیدن')}</p>
+            <h2 lang="fa" dir="rtl">{book?.originalTitle || 'زنگله‌ام'}</h2>
+            {!fa && <p className={styles.transliteration}>Zangole’am</p>}
+            <p className={styles.subtitle}>{book && t(book.subtitle, locale)}</p>
+            <span className={styles.byline}>{book && t(book.author, locale)} · {copy('Originally written in Persian', 'به زبان فارسی')}</span>
+            <Link href={`/${locale}/books`} className={styles.textLink}>{copy('Enter the book', 'ورود به جهان کتاب')}<ArrowUpRight size={17} /></Link>
+          </div>
+          <div className={styles.bookPassage} data-panel-reveal>
+            <p>{book && t(book.synopsis, locale)}</p>
+            <div className={styles.bookQuote}><p className={styles.eyebrow}>{copy('THE ALCHEMY OF SUFFERING', 'جواهرِ وجود و کیمیاگریِ رنج')}</p><BookQuote excerpt={bookExcerpts.rebirth} locale={locale} compact /></div>
+          </div>
         </div>
       </article>
       <article id="editions" tabIndex={-1} data-panel data-surface="light" className={`${styles.panel} ${styles.editions}`}>

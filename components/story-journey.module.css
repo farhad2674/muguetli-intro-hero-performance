@@ -85,3 +85,42 @@
 @media(max-width:700px){.collectionChapter{padding-inline:0;overflow:hidden}.collectionIntro{grid-template-columns:1fr;padding-inline:6vw;gap:24px;margin-bottom:36px}.collectionIntro h2{font-size:17vw}.collectionStatement{justify-self:start;max-width:none}.collectionRail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 6vw 18px;transform:none;scrollbar-width:none}.collectionRail::-webkit-scrollbar{display:none}.collectionCard{flex:0 0 min(76vw,340px);scroll-snap-align:center;transform:none!important;margin-top:0!important}.collectionSigil{aspect-ratio:1}.collectionAtmosphere{opacity:.65}.orbitOne{width:90vw;height:36vw;top:19%}.orbitTwo{width:70vw;height:28vw}.drawnThread{right:4%;top:8%}}
 @media(prefers-reduced-motion:reduce){.collectionRail,.collectionCard,.collectionSigil:before,.collectionSigil:after,.sigilOrbit,.sigilPrimary,.sigilParticles,.pointerBloom,.orbit,.drawnThread,.collectionHint span{transform:none!important;transition:none!important}}
 
+/* The two campaign compositions share the existing chapter's art/reveal motion. */
+.book{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:4vw;background:#f4eee7}
+.bookArtwork{min-width:0;align-self:center}
+.bookArtwork picture,.bookArtwork img{display:block;width:100%}
+.bookArtwork img{height:auto;aspect-ratio:3/2;object-fit:contain}
+.bookCopy{min-width:0}
+.book .bookIdentity h2,.journey[data-horizontal=true] .bookIdentity h2{font-size:clamp(3rem,4.5vw,5.5rem);line-height:1.3}
+.book .transliteration{font-size:1.45rem;margin:4px 0 12px}
+.book .subtitle{font-size:clamp(1.1rem,1.45vw,1.6rem);line-height:1.65;margin:12px 0}
+.book .eyebrow{margin-bottom:12px}
+.book .textLink{margin-top:12px}
+.bookPassage{margin-top:20px}
+.bookPassage>p{font-size:.9rem;line-height:1.85;margin:0}
+.book .bookQuote{margin-top:18px;padding-top:16px}
+.book .bookQuote p{font-size:.9rem!important;line-height:1.8!important}
+.book .bookQuote figcaption{margin-top:10px;font-size:.68rem}
+@media(min-width:1024px) and (max-height:850px){
+  .journey[data-horizontal=true] .book{padding-bottom:28px;gap:3vw;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+  .journey[data-horizontal=true] .bookIdentity h2{font-size:3rem}
+  .journey[data-horizontal=true] .book .eyebrow{margin-bottom:7px}
+  .journey[data-horizontal=true] .book .subtitle{font-size:1.1rem;margin:7px 0}
+  .journey[data-horizontal=true] .book .transliteration{font-size:1.15rem;margin:0 0 6px}
+  .journey[data-horizontal=true] .bookPassage{margin-top:12px}
+  .journey[data-horizontal=true] .book .bookQuote{margin-top:12px;padding-top:10px}
+}
+@media(min-width:701px) and (max-width:1023px){
+  .book{grid-template-columns:1fr;gap:36px}
+  .bookCopy{display:grid;grid-template-columns:1fr 1fr;gap:5vw}
+  .bookPassage{margin-top:0}
+}
+@media(max-width:700px){
+  .book{grid-template-columns:1fr;gap:32px;padding-top:0}
+  .bookArtwork{margin-inline:-6vw;width:100vw}
+  .bookArtwork img{aspect-ratio:2/3}
+  .book .bookIdentity h2{font-size:18vw}
+  .book .subtitle{font-size:1.3rem}
+  .bookPassage{margin-top:28px}
+}
+

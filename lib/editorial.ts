@@ -16,7 +16,7 @@ export const editorial: { founder: { name: LocalizedText; role: LocalizedText; i
   founder: {
     name: { en: 'Elnaz Bakhtiari', fa: 'الناز بختیاری' },
     role: { en: 'Narrative Textile & Image Architect', fa: 'معمار روایت، منسوجات و تصویر' },
-    image: '/media/collection/founder.jpg',
+    image: '/media/collection/founder.webp',
     copy: {
       en: 'Elnaz Bakhtiari is a writer, artist and designer whose work brings Bakhtiari heritage, Persian mystical literature and the inner journey into a personal language of transformation. Muguetli gives that language form through words, images, textiles and lived form.',
       fa: 'الناز بختیاری نویسنده، هنرمند و طراح است. او میراث بختیاری، ادبیات عرفانی ایران و سفر درونی را به زبانی شخصی برای دگرگونی پیوند می‌دهد. موگه‌تلی این زبان را در کلمه، تصویر، منسوجات و فرمِ زیسته شکل می‌دهد.',
@@ -37,7 +37,7 @@ export const editorial: { founder: { name: LocalizedText; role: LocalizedText; i
       category: { en: 'Wearable Art / Guide', fa: 'هنر پوشیدنی / راهنما' },
       title: { en: 'A pocket square, folded like a small frame', fa: 'دستمال جیبی؛ قابی کوچک برای داستان' },
       excerpt: { en: 'A practical introduction to the 50 × 50 cm pocket square: proportion, fold and a little room for the artwork to breathe.', fa: 'راهنمایی ساده برای دستمال جیبی ۵۰×۵۰ سانتی‌متر؛ تناسب، تا و کمی فضا برای نفس‌کشیدن تصویر.' },
-      image: '/media/collection/scarf-rust.jpg',
+      image: '/media/collection/scarf-rust.webp',
       url: '/en/journal/how-to-wear-a-pocket-square',
     },
     {
@@ -45,7 +45,7 @@ export const editorial: { founder: { name: LocalizedText; role: LocalizedText; i
       category: { en: 'Wearable Art / Guide', fa: 'هنر پوشیدنی / راهنما' },
       title: { en: 'The square scarf: one image, many gestures', fa: 'روسری مربع؛ یک تصویر، چند حرکت' },
       excerpt: { en: 'How a 90 × 90 cm square becomes a shoulder, neck or hair gesture without asking the artwork to disappear.', fa: 'چطور یک روسری ۹۰×۹۰ سانتی‌متر روی شانه، دور گردن یا در مو جان می‌گیرد؛ بی‌آنکه تصویر ناپدید شود.' },
-      image: '/media/collection/scarf-red.jpg',
+      image: '/media/collection/scarf-red.webp',
       url: '/en/journal/the-square-scarf',
     },
     {
@@ -53,7 +53,7 @@ export const editorial: { founder: { name: LocalizedText; role: LocalizedText; i
       category: { en: 'Wearable Art / Guide', fa: 'هنر پوشیدنی / راهنما' },
       title: { en: 'The long shawl and the architecture of a silhouette', fa: 'شال بلند و معماریِ سیلوئت' },
       excerpt: { en: 'A quiet guide to the 180 × 70 cm shawl: movement, proportion and the space between body and textile.', fa: 'راهنمایی آرام برای شال ۱۸۰×۷۰ سانتی‌متر؛ حرکت، تناسب و فاصلهٔ میان بدن و پارچه.' },
-      image: '/media/collection/scarf-indigo.jpg',
+      image: '/media/collection/scarf-indigo.webp',
       url: '/en/journal/the-long-shawl',
     },
   ],
@@ -100,10 +100,10 @@ export const editorialCollections: Collection[] = [
 
 // Descriptive labels for supplied photographs, not official product names or SKUs.
 export const scarfStudies = [
-  { id: 'rust', image: '/media/collection/scarf-rust.jpg', color: '#aa4329', name: { en: 'Rust border', fa: 'حاشیهٔ آجری' }, description: { en: 'An underwater world, framed in warm rust. A figure, two cats, and a sea of small stories.', fa: 'جهانی زیر آب، در قابی آجری؛ یک پیکر، دو گربه و دریایی از داستان‌های کوچک.' } },
-  { id: 'red', image: '/media/collection/scarf-red.jpg', color: '#d72e3c', name: { en: 'Scarlet border', fa: 'حاشیهٔ سرخ' }, description: { en: 'A closer encounter. A portrait surrounded by bright fish, coral and deep blue.', fa: 'دیداری از نزدیک؛ چهره‌ای در میان ماهی‌های رنگارنگ، مرجان‌ها و آبی ژرف.' } },
-  { id: 'indigo', image: '/media/collection/scarf-indigo.jpg', color: '#242c58', name: { en: 'Indigo border', fa: 'حاشیهٔ نیلی' }, description: { en: 'The underwater scene returns in indigo. A quieter frame for a richly imagined world.', fa: 'جهان زیر آب، این بار در قابی نیلی؛ حاشیه‌ای آرام برای دنیایی سرشار از خیال.' } },
-  { id: 'olive', image: '/media/collection/scarf-olive.jpg', color: '#888d28', name: { en: 'Olive border', fa: 'حاشیهٔ زیتونی' }, description: { en: 'A figure in motion, flowing ribbons and sea life. An olive edge holds the colour together.', fa: 'پیکری در حرکت، روبان‌های روان و زندگی دریایی؛ رنگ‌ها در حاشیه‌ای زیتونی به هم می‌رسند.' } },
+  { id: 'rust', image: '/media/collection/scarf-rust.webp', color: '#aa4329', name: { en: 'Rust border', fa: 'حاشیهٔ آجری' }, description: { en: 'An underwater world, framed in warm rust. A figure, two cats, and a sea of small stories.', fa: 'جهانی زیر آب، در قابی آجری؛ یک پیکر، دو گربه و دریایی از داستان‌های کوچک.' } },
+  { id: 'red', image: '/media/collection/scarf-red.webp', color: '#d72e3c', name: { en: 'Scarlet border', fa: 'حاشیهٔ سرخ' }, description: { en: 'A closer encounter. A portrait surrounded by bright fish, coral and deep blue.', fa: 'دیداری از نزدیک؛ چهره‌ای در میان ماهی‌های رنگارنگ، مرجان‌ها و آبی ژرف.' } },
+  { id: 'indigo', image: '/media/collection/scarf-indigo.webp', color: '#242c58', name: { en: 'Indigo border', fa: 'حاشیهٔ نیلی' }, description: { en: 'The underwater scene returns in indigo. A quieter frame for a richly imagined world.', fa: 'جهان زیر آب، این بار در قابی نیلی؛ حاشیه‌ای آرام برای دنیایی سرشار از خیال.' } },
+  { id: 'olive', image: '/media/collection/scarf-olive.webp', color: '#888d28', name: { en: 'Olive border', fa: 'حاشیهٔ زیتونی' }, description: { en: 'A figure in motion, flowing ribbons and sea life. An olive edge holds the colour together.', fa: 'پیکری در حرکت، روبان‌های روان و زندگی دریایی؛ رنگ‌ها در حاشیه‌ای زیتونی به هم می‌رسند.' } },
 ];
 export const moreLabel: LocalizedText = { en: 'More', fa: 'بیشتر' };
 export const services = [

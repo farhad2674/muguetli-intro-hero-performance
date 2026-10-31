@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { CanvasHero } from './canvas-hero';
+import { ArrivalPreloader } from './arrival-preloader';
 import { EditorialMotion } from './editorial-motion';
 import { StoryJourney } from './story-journey';
 import { StoryRibbon } from './story-ribbon';
@@ -16,6 +17,8 @@ export function HomePage({ locale, products, collections }: { locale: Locale; pr
   const cards = collections.length ? collections : pieces.map(p => ({ id: p.id, name: p.name, image: p.image, description: '', url: p.permalink }));
 
   return <main>
+    <noscript><style>{'dialog[data-arrival-preloader]{display:none!important}'}</style></noscript>
+    <ArrivalPreloader locale={locale} />
     <CanvasHero locale={locale} />
     <EditorialMotion locale={locale}>
       <section className={styles.storyIntro} aria-labelledby="story-intro-title">
@@ -33,7 +36,7 @@ export function HomePage({ locale, products, collections }: { locale: Locale; pr
       <StoryJourney locale={locale} collections={cards} />
 
       <section id="founder" tabIndex={-1} className={styles.founder} aria-labelledby="founder-title">
-        <div className={styles.founderArt} data-portrait><img src={editorial.founder?.image || '/media/collection/founder.jpg'} alt={copy('Elnaz Bakhtiari wearing a Muguetli scarf', 'الناز بختیاری با روسری موگه‌تلی')} width={853} height={1280} loading="lazy" /></div>
+        <div className={styles.founderArt} data-portrait><img src={editorial.founder?.image || '/media/collection/founder.webp'} alt={copy('Elnaz Bakhtiari wearing a Muguetli scarf', 'الناز بختیاری با روسری موگه‌تلی')} width={853} height={1280} loading="lazy" decoding="async" /></div>
         <div className={styles.founderCopy}>
           <p className={styles.kicker} data-reveal>{copy('03 / THE WOMAN BEHIND THE WORLD', '۰۳ / زنی پشت این جهان')}</p>
           <h2 id="founder-title" data-reveal>{copy('Elnaz', 'الناز')}<br /><span>{copy('Bakhtiari', 'بختیاری')}</span></h2>
@@ -56,7 +59,7 @@ export function HomePage({ locale, products, collections }: { locale: Locale; pr
 
       <section className={styles.journal} id="journal" tabIndex={-1} aria-labelledby="journal-title">
         <div className={styles.journalHeading} data-reveal><div><p className={styles.kicker}>{copy('05 / NOTES FROM OUR WORLD', '۰۵ / یادداشت‌هایی از جهان ما')}</p><h2 id="journal-title">{copy('The journal', 'ژورنال')}<span>.</span></h2></div><Link className={styles.textLink} href={`/${locale}/journal`}>{copy('All stories', 'همهٔ داستان‌ها')}<ArrowUpRight size={19} /></Link></div>
-        {editorial.articles.length ? <div className={styles.journalGrid}>{editorial.articles.slice(0, 3).map(a => <a href={a.url.replace(/^\/en(?=\/|$)/, `/${locale}`)} key={a.id} data-reveal><img src={a.image} alt="" width={700} height={500} loading="lazy" /><small>{t(a.category, locale)}</small><h3>{t(a.title, locale)}</h3><p>{t(a.excerpt, locale)}</p></a>)}</div> : <p className={styles.journalNote}>{copy('Stories are taking shape. New notes will appear here.', 'داستان‌ها در حال شکل‌گرفتن‌اند. یادداشت‌های تازه اینجا منتشر می‌شوند.')}</p>}
+        {editorial.articles.length ? <div className={styles.journalGrid}>{editorial.articles.slice(0, 3).map(a => <a href={a.url.replace(/^\/en(?=\/|$)/, `/${locale}`)} key={a.id} data-reveal><img src={a.image} alt="" width={700} height={500} loading="lazy" decoding="async" /><small>{t(a.category, locale)}</small><h3>{t(a.title, locale)}</h3><p>{t(a.excerpt, locale)}</p></a>)}</div> : <p className={styles.journalNote}>{copy('Stories are taking shape. New notes will appear here.', 'داستان‌ها در حال شکل‌گرفتن‌اند. یادداشت‌های تازه اینجا منتشر می‌شوند.')}</p>}
       </section>
     </EditorialMotion>
   </main>;

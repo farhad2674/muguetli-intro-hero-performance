@@ -8,9 +8,8 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTri
 import { navigation, t, type Locale } from '@/lib/muguetli';
 import { collectionIds, collectionMeta, type CollectionId } from '@/lib/catalog';
 import { MotionToggle, useMotionPreference } from './motion-preference';
+import { useArrivalReady } from './arrival-ready';
 import styles from './site-chrome.module.css';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 function rememberLocale(locale: Locale) {
   document.cookie = `muguetli_locale=${locale}; Max-Age=31536000; Path=/; SameSite=Lax`;
@@ -43,6 +42,7 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
   const headerRef = useRef<HTMLElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const { reduced } = useMotionPreference();
+  const arrivalReady = useArrivalReady();
   const copy = (en: string, faText: string) => fa ? faText : en;
   const collectionHref = (collection: CollectionId) => `${home}/collections/${collection}`;
   const collectionLabel = (collection: CollectionId) => t(collectionMeta[collection].name, locale);
@@ -55,13 +55,20 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
   const isActive = (slug: string) => pathname === `${home}/${slug}` || pathname.startsWith(`${home}/${slug}/`);
 
   useEffect(() => {
-    if (reduced || !footerRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const context = gsap.context(() => {
-      gsap.fromTo('[data-footer-mark]', { y: 24 }, { y: 0, ease: 'none', scrollTrigger: { trigger: footerRef.current, start: 'top bottom', end: 'top 75%', scrub: true } });
-    }, footerRef);
-    return () => context.revert();
-  }, [reduced]);
+    if (reduced || !arrivalReady || !footerRef.current) return;
+    let cancelled = false;
+    let cleanup = () => {};
+    void Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapModule, triggerModule]) => {
+      if (cancelled || !footerRef.current) return;
+      const { gsap } = gsapModule;
+      gsap.registerPlugin(triggerModule.ScrollTrigger);
+      const context = gsap.context(() => {
+        gsap.fromTo('[data-footer-mark]', { y: 24 }, { y: 0, ease: 'none', scrollTrigger: { trigger: footerRef.current, start: 'top bottom', end: 'top 75%', scrub: true } });
+      }, footerRef);
+      cleanup = () => context.revert();
+    });
+    return () => { cancelled = true; cleanup(); };
+  }, [arrivalReady, reduced]);
 
   useEffect(() => {
     document.documentElement.lang = locale;

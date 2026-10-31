@@ -15,7 +15,7 @@ export function ScarfGallery({ locale, ids, cinematic = false }: { locale: Local
       <Dialog>
         <div className={styles.imageMotion} data-scarf data-panel-art={cinematic || undefined}>
           <DialogTrigger className={styles.imageButton} aria-label={`${fa ? 'نمای نزدیک' : 'View scarf'}: ${t(scarf.name, locale)}`}>
-            <img src={scarf.image} alt={t(scarf.description, locale)} width={1280} height={1280} loading="lazy" />
+            <img src={scarf.image} alt={t(scarf.description, locale)} width={1280} height={1280} loading="lazy" decoding="async" />
             <span className={styles.view}>{fa ? 'از نزدیک' : 'A closer look'}<ArrowUpRight size={18} /></span>
           </DialogTrigger>
         </div>
@@ -26,7 +26,7 @@ export function ScarfGallery({ locale, ids, cinematic = false }: { locale: Local
         </div>
         <DialogContent className={styles.dialog} showCloseButton={false} dir={fa ? 'rtl' : 'ltr'}>
           <DialogClose className={styles.close} aria-label={fa ? 'بستن' : 'Close'}><X size={21} /></DialogClose>
-          <img className={styles.detailImage} src={scarf.image} alt={t(scarf.description, locale)} width={1280} height={1280} />
+          <img className={styles.detailImage} src={scarf.image} alt={t(scarf.description, locale)} width={1280} height={1280} loading="lazy" decoding="async" />
           <div className={styles.details}>
             <span className={styles.detailLabel}>MUGUETLI / {fa ? 'روسری' : 'SCARVES'}</span>
             <DialogTitle className={styles.title}>{t(scarf.name, locale)}</DialogTitle>

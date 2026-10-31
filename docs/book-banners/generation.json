@@ -1,0 +1,24 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-10-21",
+  "sources": [
+    "C:/Users/Farhad/Downloads/01.pdf",
+    "C:/Users/Farhad/Downloads/1a15f42782691eb41e61.pdf.adding.webp"
+  ],
+  "requirements": "Retain original printed cover titles and author names. No additional banner text. Separate desktop and mobile compositions. Preserve existing website animation.",
+  "assets": [
+    {
+      "file": "public/media/books/book-banner-desktop-v1.webp",
+      "width": 1536,
+      "height": 1024,
+      "prompt": "Edit target: image 1, the landscape book scene. Supporting exact cover references: image 2 English spread (front = RIGHT half); image 3 Persian spread (front = LEFT half). Keep the same three books, same landscape 1536x1024 composition, stone stands, lighting, atmosphere, illustrations and camera. ONE correction: RESTORE THE ORIGINAL PRINTED COVER TEXT onto the three physical books, matching the supplied source covers faithfully. Persian upright book AND Persian flat book must carry original Persian title near top 'زنگله‌ام', author near bottom 'نویسنده:' and 'الناز بختیاری آقمسجد', along with original tiny decorative writing from source where visible. English book must have original white serif title 'MUGUETLI' then 'WAS BORN' on blue above its illustration, and author line 'Elnaz Bakhtiari Aghmasjed'. Use the entire original front-cover layouts, making illustration smaller where necessary to accommodate the actual source typography. Accurately project printed text with perspective onto covers; do not put text anywhere outside the physical books. These are REAL existing books: faithfully preserve their printed artwork and typography. Do not invent any extra banner headline, subtitle, label, caption, logo, watermark, or promotional overlay. Only text that already exists on original front covers."
+    },
+    {
+      "file": "public/media/books/book-banner-mobile-v1.webp",
+      "width": 1024,
+      "height": 1536,
+      "prompt": "Edit target image 1 portrait mobile banner. Keep this vertical 1024x1536 scene, three books, all camera angles, framing, stands, background, flowers and lighting. Restore all ORIGINAL cover typography: references image 2 is English spread (front is RIGHT HALF), image 3 Persian spread (front is LEFT HALF), image 4 shows corrected matching landscape campaign. The upright Persian cover and flat Persian book need original white Persian title 'زنگله‌ام' at top and the original bottom author 'نویسنده:' / 'الناز بختیاری آقمسجد', as well as original tiny cover inscriptions. The upright English cover needs exact white original serif title 'MUGUETLI' / 'WAS BORN' with author 'Elnaz Bakhtiari Aghmasjed', in blue space above the illustration. Match actual full front cover composition from sources including typography, scaling illustration down only as needed to restore true layout. Preserve recognizable cover artwork. All printed writing must follow physical book perspective. NO extra standalone headline, slogan, labels, banner title, watermark, or any text outside the actual printed books. Do not remove original cover writing. This is a separate portrait mobile banner, not a landscape crop."
+    }
+  ],
+  "integration": "components/story-journey.tsx and components/story-journey.module.css. Existing data-panel, data-panel-reveal, and data-panel-art hooks; responsive picture source at 700px."
+}
