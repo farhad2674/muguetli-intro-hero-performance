@@ -1,6 +1,7 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
-import {FRAME_COUNT,FRAME_VERSION} from '@/lib/hero-frames';
+import {FRAME_COUNT} from '@/lib/hero-frames';
+import {heroFrameUrl as frameUrl} from '@/lib/hero-media';
 import type {Locale} from '@/lib/muguetli';
 import {TextDrum} from './text-drum';
 import {useMotionPreference} from './motion-preference';
@@ -11,7 +12,6 @@ import styles from './canvas-hero.module.css';
 export const SCROLL_VH = 600;
 const FRAME_LERP = 0.1;
 const CRITICAL_FRAME_COUNT = 8;
-const frameUrl=(index:number)=>`/hero/frames/frame_${String(index+1).padStart(4,'0')}.webp?v=${FRAME_VERSION}`;
 const clamp=(value:number)=>Math.max(0,Math.min(1,value));
 
 export function CanvasHero({locale}:{locale:Locale}){
@@ -23,14 +23,14 @@ export function CanvasHero({locale}:{locale:Locale}){
  const [ready,setReady]=useState(false);
  const signalHeroReady=()=>{if(heroSignalled.current)return;heroSignalled.current=true;markHeroCriticalReady();};
  useEffect(()=>{delete document.documentElement.dataset.heroCriticalReady;heroSignalled.current=false;return()=>{delete document.documentElement.dataset.heroCriticalReady;};},[]);
- useEffect(()=>{if(mode==='static'){const poster=art.current?.querySelector<HTMLImageElement>('[data-hero-poster]');if(poster?.complete&&poster.naturalWidth>0)signalHeroReady();}},[mode]);
+ useEffect(()=>{if(mode==='static'){const poster=art.current?.querySelector<HTMLImageElement>('[data-hero-poster]');if(poster?.complete){if(!poster.naturalWidth){poster.style.visibility='hidden';document.documentElement.dataset.heroFallback='true';}signalHeroReady();}}},[mode]);
  // Decide eligibility in its own effect before the sequence-loading effect can run.
  useEffect(()=>{const phone=matchMedia('(max-width: 768px)'),reduced=matchMedia('(prefers-reduced-motion: reduce)');const update=()=>{progress.current=0;setReady(false);setMode(phone.matches||reduced.matches||motionReduced?'static':'desktop');};update();phone.addEventListener('change',update);reduced.addEventListener('change',update);return()=>{phone.removeEventListener('change',update);reduced.removeEventListener('change',update);};},[motionReduced]);
  useEffect(()=>{
   if(mode!=='desktop')return;
   const element=track.current,output=canvas.current,wrapper=art.current;
   if(!element||!output||!wrapper)return;
-  const context=output.getContext('2d',{alpha:false});if(!context)return;
+  const context=output.getContext('2d',{alpha:false});if(!context){setMode('static');return;}
   let disposed=false,raf=0,current=0,lastDrawn=-1,width=0,height=0,loaded=0,criticalLoaded=0,inFlight=0;
   let px=0,py=0,ex=0,ey=0;
   const images=Array.from({length:FRAME_COUNT},()=>new Image());
@@ -55,6 +55,7 @@ export function CanvasHero({locale}:{locale:Locale}){
     image.onerror=()=>{
      inFlight--;if(disposed)return;
      if(attempts[index]<2){attempts[index]++;requested.delete(index);window.setTimeout(()=>{if(disposed||requested.has(index))return;requested.add(index);queued.add(index);pump();},250*attempts[index]);}
+     else if(index<CRITICAL_FRAME_COUNT){document.documentElement.dataset.heroFallback='true';setMode('static');}
      pump();
     };
     image.src=frameUrl(index);
@@ -112,7 +113,7 @@ export function CanvasHero({locale}:{locale:Locale}){
  return <section id="story" ref={track} className={styles.track} data-mode={mode||'pending'} data-frame-count={FRAME_COUNT} style={{'--scroll-vh':`${SCROLL_VH}vh`} as React.CSSProperties} aria-label={fa?'جهان موگه‌تلی':'The world of Muguetli'}>
   <div className={styles.stage}>
    <div className={styles.art} ref={art}>
-    <img className={styles.poster} data-hero-poster src={frameUrl(0)} alt="" width={1920} height={1080} fetchPriority="high" decoding="async" onLoad={()=>{if(mode==='static')signalHeroReady();}}/>
+    <img className={styles.poster} data-hero-poster src={frameUrl(0)} alt="" width={1920} height={1080} fetchPriority="high" decoding="async" onLoad={()=>{if(mode==='static')signalHeroReady();}} onError={event=>{event.currentTarget.style.visibility='hidden';document.documentElement.dataset.heroFallback='true';setMode('static');signalHeroReady();}}/>
     {mode==='desktop'&&<canvas ref={canvas} className={styles.canvas} data-ready={ready||undefined} aria-hidden="true"/>}
    </div>
    <div className={styles.scrimLeft}/><div className={styles.scrimRight}/><div className={styles.scrimTop}/>

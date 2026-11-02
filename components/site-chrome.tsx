@@ -112,7 +112,9 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
             <span className={styles.menuLabel}>{copy('Menu', 'فهرست')}</span>
             <span className={styles.menuGlyph} aria-hidden="true"><span /><span /></span>
           </SheetTrigger>
-          <SheetContent id="muguetli-menu" side={fa ? 'left' : 'right'} showCloseButton={false} className={styles.menuPanel} dir={fa ? 'rtl' : 'ltr'}>
+          <SheetContent id="muguetli-menu" side={fa ? 'left' : 'right'} showCloseButton={false} className={styles.menuPanel} dir={fa ? 'rtl' : 'ltr'} onClick={event => {
+            if (event.target instanceof Element && event.target.closest('a[href]')) setOpen(false);
+          }}>
             <div className={styles.menuTop}>
               <div>
                 <SheetTitle className={styles.menuWordmark}>MUGUETLI</SheetTitle>
@@ -126,7 +128,7 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
                 <div className={styles.menuHeading}>
                   <span>01</span>
                   <div><p>{copy('Wearable art', 'هنر پوشیدنی')}</p><h2 id="wearable-menu-title">{copy('Scarves & textiles', 'روسری و منسوجات')}</h2></div>
-                  <Link href={`${home}/collections`} className={styles.viewAll}>{copy('View all', 'دیدن همه')} <ArrowUpRight size={16} /></Link>
+                  <Link href={`${home}/products`} className={styles.viewAll}>{copy('View all', 'دیدن همه')} <ArrowUpRight size={16} /></Link>
                 </div>
 
                 <div className={styles.browsePaths}>
@@ -181,7 +183,7 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
     <footer ref={footerRef} className={styles.footer}>
       <div className={styles.footerTop}>
         <div className={styles.footerIdentity}><Link href={home} className={styles.footerLogo} data-footer-mark>MUGUETLI</Link><p>{copy('A world to wear. A story to live.', 'جهانی برای پوشیدن. داستانی برای زیستن.')}</p><a className={styles.backToTop} href="#main-content">{copy('Back to top', 'بازگشت به بالا')} ↑</a></div>
-        <nav aria-label={copy('Sitemap', 'نقشهٔ سایت')} className={styles.footerMap}><h2>{copy('SITEMAP', 'نقشهٔ سایت')}</h2><div><Link href={home}>{copy('Home', 'خانه')}</Link><Link href={`${home}/collections`}>{copy('Wearable art', 'هنر پوشیدنی')}</Link><Link href={`${home}/journal`}>{copy('Philosophy & journal', 'فلسفه و ژورنال')}</Link><Link href={`${home}/about`}>{copy('About Elnaz Bakhtiari', 'دربارهٔ الناز بختیاری')}</Link><Link href={`${home}/consulting`}>{copy('Form & embodiment', 'فرم و تجسّم')}</Link><Link href={`${home}/books`}>{copy('Zangole’am', 'زنگله‌ام')}</Link><Link href={`${home}/nfts`}>{copy('Digital art', 'هنر دیجیتال')}</Link><Link href={`${home}/mythology`}>{copy('The four mothers', 'چهار مادر')}</Link></div></nav>
+        <nav aria-label={copy('Sitemap', 'نقشهٔ سایت')} className={styles.footerMap}><h2>{copy('SITEMAP', 'نقشهٔ سایت')}</h2><div><Link href={home}>{copy('Home', 'خانه')}</Link><Link href={`${home}/products`}>{copy('Wearable art', 'هنر پوشیدنی')}</Link><Link href={`${home}/journal`}>{copy('Philosophy & journal', 'فلسفه و ژورنال')}</Link><Link href={`${home}/about`}>{copy('About Elnaz Bakhtiari', 'دربارهٔ الناز بختیاری')}</Link><Link href={`${home}/consulting`}>{copy('Form & embodiment', 'فرم و تجسّم')}</Link><Link href={`${home}/books`}>{copy('Zangole’am', 'زنگله‌ام')}</Link><Link href={`${home}/nfts`}>{copy('Digital art', 'هنر دیجیتال')}</Link><Link href={`${home}/mythology`}>{copy('The four mothers', 'چهار مادر')}</Link></div></nav>
         <nav aria-label={copy('Information', 'اطلاعات')} className={styles.footerInfo}><h2>{copy('INFORMATION', 'اطلاعات')}</h2><Link href={`${home}/contact`}>{copy('Private inquiries', 'پرسش خصوصی')}</Link><Link href={`${home}/size-guide`}>{copy('Size guide', 'راهنمای اندازه')}</Link><Link href={`${home}/privacy`}>{copy('Privacy', 'حریم خصوصی')}</Link><Link href={`${home}/accessibility`}>{copy('Accessibility', 'دسترسی‌پذیری')}</Link><Link href={`${home}/cookies`}>{copy('Cookies', 'کوکی‌ها')}</Link></nav>
       </div>
       <div className={styles.footerBottom}><span>© {new Date().getFullYear()} MUGUETLI</span><span>{copy('NARRATIVE TEXTILE & IMAGE ARCHITECTURE', 'معماری روایت، منسوجات و تصویر')}</span><LanguageSwitch path={otherPath} targetLocale={other}>{fa ? 'English' : 'فارسی'} ↗</LanguageSwitch></div>

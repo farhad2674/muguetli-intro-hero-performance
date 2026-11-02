@@ -86,7 +86,7 @@ export const siteCopy = {
 export const navigation = [
   { slug: '', label: { en: 'Home', fa: 'خانه' } },
   { slug: 'journal', label: { en: 'Philosophy & Journal', fa: 'فلسفه و ژورنال' } },
-  { slug: 'collections', label: { en: 'Wearable Art', fa: 'هنر پوشیدنی' } },
+  { slug: 'products', label: { en: 'Wearable Art', fa: 'هنر پوشیدنی' } },
   { slug: 'consulting', label: { en: 'Form & Embodiment', fa: 'فرم و تجسّم' } },
   { slug: 'about', label: { en: 'About Elnaz Bakhtiari', fa: 'دربارهٔ الناز بختیاری' } },
   { slug: 'contact', label: { en: 'Private Consultation', fa: 'مشاورهٔ خصوصی' } },
