@@ -37,6 +37,7 @@ export interface SizeOption {
 
 export interface InquiryContext {
   designId: string;
+  productName?: string;
   collection: CollectionId;
   size: SizeCode;
   type: ProductType;

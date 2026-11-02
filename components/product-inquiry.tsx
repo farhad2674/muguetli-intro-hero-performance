@@ -1,61 +1,48 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ArrowUpRight, Copy, MessageCircle } from 'lucide-react';
+import { useSyncExternalStore } from 'react';
+import { ArrowUpRight, ChevronDown, Mail } from 'lucide-react';
 import { buildProductInquiry } from '@/lib/inquiry';
-import type { CollectionId, SizeCode } from '@/lib/catalog';
-import type { Locale } from '@/lib/muguetli';
+import { sizeOptions, type CollectionId, type SizeCode } from '@/lib/catalog';
+import { t, type LocalizedText, type Locale } from '@/lib/muguetli';
 import styles from './product-detail.module.css';
 
-export function ProductInquiry({ locale, designId, collection, size }: { locale: Locale; designId: string; collection: CollectionId; size: SizeCode }) {
+const subscribeToOrigin = () => () => {};
+const getBrowserOrigin = () => window.location.origin;
+const getServerOrigin = () => '';
+
+function WhatsAppIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.8A8.5 8.5 0 1 1 20.5 11.6Z" /><path d="m8.2 7.4 1.2 2.4-.9 1.1c.8 1.7 2 2.9 3.7 3.7l1.1-.9 2.4 1.2c.2.1.3.4.2.6-.4 1-1.3 1.5-2.3 1.2-3.6-1-6.6-4-7.4-7.4-.2-.9.4-1.7 1.3-2.1.3-.1.6 0 .7.2Z" /></svg>;
+}
+
+export function ProductInquiry({ locale, designId, productName, productPath, collection, size }: { locale: Locale; designId: string; productName: LocalizedText; productPath: string; collection: CollectionId; size: SizeCode }) {
   const fa = locale === 'fa';
-  const [customerName, setCustomerName] = useState('');
-  const [copied, setCopied] = useState(false);
-  const [manualMessage, setManualMessage] = useState('');
-  const [previewMessage, setPreviewMessage] = useState('');
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/[^\d]/g, '');
-
-  const message = (name = customerName) => buildProductInquiry({
-    designId,
-    collection,
-    size,
-    type: size === '50x50' ? 'pocket-square' : size === '90x90' ? 'square-scarf' : 'long-shawl',
-    pageUrl: new URL(`${window.location.pathname}?size=${size}`, process.env.NEXT_PUBLIC_SITE_URL || window.location.origin).href,
-    customerName: name,
-  });
-
-  const openWhatsApp = () => {
-    if (!number) return;
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message())}`, '_blank', 'noopener,noreferrer');
-  };
-
-  const copyMessage = async () => {
-    try {
-      await navigator.clipboard.writeText(message());
-      setManualMessage('');
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2500);
-    } catch {
-      setCopied(false);
-      setManualMessage(message());
-    }
-  };
+  const browserOrigin = useSyncExternalStore(subscribeToOrigin, getBrowserOrigin, getServerOrigin);
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || browserOrigin;
+  const pageUrl = origin ? new URL(productPath, origin).href : productPath;
+  const message = buildProductInquiry({ designId, productName: productName.fa, collection, size, type: sizeOptions[size].type, pageUrl });
+  const whatsappHref = `https://wa.me/989125278389?text=${encodeURIComponent(message)}`;
+  const emailHref = `mailto:shop@muguetli.com?subject=${encodeURIComponent(`MUGUETLI — ${t(productName, locale)} — ${size}`)}&body=${encodeURIComponent(message)}`;
 
   return <section className={styles.inquiry} aria-labelledby="product-inquiry-title">
-    <span>{fa ? 'یک گفت‌وگوی خصوصی' : 'A PRIVATE CONVERSATION'}</span>
-    <h2 id="product-inquiry-title">{fa ? 'اثر را با نامش صدا بزنید.' : 'Begin with this artwork.'}</h2>
-    <p>{fa ? 'ارجاع طرح، مجموعه و اندازهٔ انتخابی در پیام شما آماده است. پیش از ارسال می‌توانید متن را مرور کنید.' : 'Your design reference, collection and selected size are prepared in a Persian message for the artist. Review it before sending.'}</p>
-    <label htmlFor="product-customer-name">{fa ? 'نام شما (اختیاری)' : 'Your name (optional)'}</label>
-    <input id="product-customer-name" value={customerName} onChange={event => { setCustomerName(event.target.value); if (previewMessage) setPreviewMessage(message(event.target.value)); }} maxLength={80} autoComplete="name" placeholder={fa ? 'نام' : 'Name'} />
-    <button type="button" className={styles.previewInquiry} aria-expanded={Boolean(previewMessage)} aria-controls="inquiry-preview" onClick={() => setPreviewMessage(previewMessage ? '' : message())}>{fa ? 'مرور متن پرسش' : 'Preview inquiry message'}</button>
-    {previewMessage && <div id="inquiry-preview" className={styles.manualMessage}><label htmlFor="preview-inquiry">{fa ? 'متن آمادهٔ ارسال' : 'Your prepared message'}</label><textarea id="preview-inquiry" readOnly value={previewMessage} rows={7} dir="rtl" /></div>}
-    <div className={styles.inquiryActions}>
-      {number ? <button type="button" onClick={openWhatsApp}><MessageCircle size={18} />{fa ? 'مرور و ارسال در واتس‌اپ' : 'Review in WhatsApp'}<ArrowUpRight size={17} /></button> : <button type="button" onClick={copyMessage}><Copy size={18} />{copied ? (fa ? 'متن کپی شد' : 'Message copied') : (fa ? 'کپی متن پرسش' : 'Copy inquiry text')}</button>}
-      <Link href={`/${locale}/contact`}>{fa ? 'راه‌های دیگر ارتباط' : 'Other ways to get in touch'}<ArrowUpRight size={17} /></Link>
+    <h2 id="product-inquiry-title">{fa ? 'این اثر را پسندیدید؟' : 'Drawn to this artwork?'}</h2>
+    <p>{fa ? 'برای قیمت، موجودی یا راهنمایی در انتخاب، به ما پیام بدهید. نام اثر و اندازهٔ انتخابی در پیام شما آماده است.' : 'Ask us about pricing, availability or choosing your piece. Your artwork and selected size are already in the message.'}</p>
+    <div className={styles.inquirySelection}>
+      <span>{t(productName, locale)}</span>
+      <span dir="ltr">{sizeOptions[size].widthCm} × {sizeOptions[size].heightCm} cm</span>
     </div>
-    <span role="status" className="sr-only">{copied ? (fa ? 'متن کپی شد' : 'Message copied') : ''}</span>
-    {manualMessage && <div className={styles.manualMessage}><label htmlFor="manual-inquiry">{fa ? 'کپی خودکار ممکن نشد. متن را از اینجا کپی کنید.' : 'Automatic copying is unavailable. Copy your message below.'}</label><textarea id="manual-inquiry" readOnly value={manualMessage} rows={7} dir="rtl" onFocus={event => event.currentTarget.select()} /></div>}
-    {!number && <small>{fa ? 'شمارهٔ رسمی واتس‌اپ هنوز تأیید و متصل نشده است.' : 'The official WhatsApp number has not been connected yet.'}</small>}
+    <div className={styles.contactActions}>
+      <a className={styles.whatsappAction} href={whatsappHref} target="_blank" rel="noopener noreferrer">
+        <WhatsAppIcon /><span>{fa ? 'پرسش در واتس‌اپ' : 'Ask us on WhatsApp'}</span><ArrowUpRight size={18} aria-hidden="true" />
+      </a>
+      <a className={styles.emailAction} href={emailHref}>
+        <Mail size={20} aria-hidden="true" /><span>{fa ? 'ارسال ایمیل' : 'Send an email'}</span><ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+    </div>
+    <small className={styles.contactHint}>{fa ? 'پیش از ارسال، می‌توانید پیام را در واتس‌اپ یا ایمیل ویرایش کنید.' : 'You can edit the message in WhatsApp or email before sending.'}</small>
+    <details className={styles.messagePreview}>
+      <summary>{fa ? 'دیدن متن پیام' : 'Preview your message'}<ChevronDown size={16} aria-hidden="true" /></summary>
+      <div className={styles.manualMessage}><label htmlFor="preview-inquiry">{fa ? 'پیام آمادهٔ شما' : 'Your prepared message (in Persian)'}</label><textarea id="preview-inquiry" readOnly value={message} rows={8} dir="rtl" /></div>
+    </details>
   </section>;
 }

@@ -38,7 +38,7 @@ export function ProductDetail({ locale, design, selectedSize }: { locale: Locale
           <p className={styles.sizeNote}>{fa ? 'این‌ها گزینه‌های این طرح در فهرست‌اند، نه ادعای موجودی آماده.' : 'These are catalogue options for this design, not a claim of ready stock.'}</p>
         </div>
         <div className={styles.privateNote}><span aria-hidden="true">✳</span><span>{fa ? 'قیمت و موجودی با استعلام مشخص می‌شود.' : 'Price and availability confirmed by private inquiry.'}</span></div>
-        <ProductInquiry key={selectedSize} locale={locale} designId={design.id} collection={design.collection} size={selectedSize} />
+        <ProductInquiry key={`${design.id}-${selectedSize}`} locale={locale} designId={design.id} productName={design.title} productPath={productHref(locale, design, selectedSize)} collection={design.collection} size={selectedSize} />
         <div className={styles.details}>
           <details open><summary>{fa ? 'روایت مجموعه' : 'The collection story'}</summary><p>{t(collection.statement, locale)}</p><Link href={`/${locale}/collections/${design.collection}`}>{fa ? 'کشف مجموعه' : 'Explore the collection'} <ArrowUpRight size={15} /></Link></details>
           <details><summary>{fa ? 'جزئیات اثر و تصاویر' : 'Artwork & image details'}</summary><p>{fa ? 'نمای کامل، نقش و حاشیه‌های اثر را نشان می‌دهد. تصاویر استایلِ برچسب‌دار با هوش مصنوعی ساخته شده‌اند؛ برای بررسی نقش و رنگ به عکس‌های اصلی مراجعه کنید.' : 'The full artwork reveals the pattern and borders. Labelled styling images are AI visualizations; refer to original photographs for pattern and color.'}</p><p dir="ltr">MUGUETLI / {design.id.toUpperCase()} / {selectedSize} cm</p></details>

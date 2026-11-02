@@ -29,3 +29,30 @@
 .manualMessage{margin-top:1rem}.manualMessage textarea{width:100%;padding:.8rem;border:1px solid var(--editorial-line);background:var(--editorial-tint);font:inherit;font-size:.8rem;line-height:1.8;color:var(--ink);resize:vertical}
 .page[dir=rtl] .galleryArrows{inset-inline-end:auto;left:1rem}
 .previewInquiry{display:inline-flex;align-items:center;min-height:44px;padding:.4rem 0;border:0;border-bottom:1px solid var(--editorial-line);background:transparent;color:var(--plum);font-size:.75rem;cursor:pointer}.openImage:focus-visible,.zoomImage:focus-visible{outline:3px solid var(--teal);outline-offset:-4px}.galleryArrows button,.lightboxControls button{min-width:44px;min-height:44px}
+
+/* Direct product inquiries */
+.inquiry{margin-top:1.5rem;padding:1.4rem;border:1px solid var(--editorial-line);border-radius:12px;background:linear-gradient(145deg,#fff,var(--editorial-tint))}
+.inquiry h2{margin:0;font-size:1.65rem;line-height:1.2}
+.inquirySelection{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.8rem 0;border-block:1px solid var(--editorial-line);color:var(--plum);font-size:.72rem}
+.inquirySelection>span:last-child{flex-shrink:0;color:#625b60;font-size:.68rem}
+.contactActions{display:grid;gap:.65rem;margin-top:1rem}
+.contactActions a{display:flex;align-items:center;justify-content:center;gap:.75rem;min-height:54px;padding:.8rem 1rem;border:1px solid transparent;border-radius:7px;font-size:.85rem;font-weight:600;text-decoration:none;transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
+.contactActions a>svg{flex-shrink:0;transition:transform .22s ease}
+.contactActions a>span{flex:1;text-align:start}
+.contactActions .whatsappAction{background:#167943;color:#fff;border-color:#167943;box-shadow:0 4px 12px rgb(22 121 67 / .12)}
+.contactActions .emailAction{background:transparent;color:var(--plum);border-color:var(--editorial-line)}
+.contactActions a:focus-visible,.messagePreview summary:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+.contactActions a:active{transform:scale(.985)}
+.inquiry .contactHint{margin-top:.8rem;font-size:.67rem;line-height:1.8;color:#625b60}
+.messagePreview{margin-top:.8rem;border-top:1px solid var(--editorial-line)}
+.messagePreview summary{display:flex;align-items:center;justify-content:space-between;gap:.6rem;min-height:44px;color:var(--plum);font-size:.72rem;cursor:pointer;list-style:none}
+.messagePreview summary::-webkit-details-marker{display:none}
+.messagePreview summary svg{transition:transform .2s ease}
+.messagePreview[open] summary svg{transform:rotate(180deg)}
+.messagePreview .manualMessage{margin-top:.3rem;animation:inquiryReveal .22s ease-out}
+.messagePreview textarea{background:rgb(255 255 255 / .7);border-radius:5px;font-size:.75rem}
+.page[dir=rtl] .inquiry h2{font-size:1.45rem;letter-spacing:0}
+@keyframes inquiryReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:hover){.contactActions a:hover{transform:translateY(-2px)}.contactActions .whatsappAction:hover{background:#116237;box-shadow:0 7px 18px rgb(22 121 67 / .22)}.contactActions .emailAction:hover{background:#fff;box-shadow:0 4px 12px rgb(60 25 62 / .06)}.contactActions a:hover>svg:last-child{transform:translate(2px,-2px)}}
+@media(max-width:420px){.inquiry{padding:1.1rem}.inquirySelection{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.contactActions a,.contactActions a>svg,.messagePreview summary svg{transition:none}.contactActions a:hover,.contactActions a:active{transform:none}.contactActions a:hover>svg:last-child{transform:none}.messagePreview .manualMessage{animation:none}}
