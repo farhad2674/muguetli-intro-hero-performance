@@ -1,0 +1,86 @@
+{
+  "sourceDirectory": "C:/Users/Farhad/Downloads/Icons",
+  "usage": "Collection detail header artwork. Original colors retained; whitespace cropped; lossless WebP with no upscaling. Compact controls continue using SVG.",
+  "assets": [
+    {
+      "id": "fire",
+      "source": "IMG_2253 7.jpg",
+      "sha256": "05fc5cd64bb2ce25526858b26e3ca2ec75099dcbd09cc62a4701f7dd5643c0c6",
+      "original": {
+        "width": 234,
+        "height": 226
+      },
+      "crop": {
+        "left": 25,
+        "top": 22,
+        "width": 192,
+        "height": 174
+      },
+      "output": "/icons/detail/fire.webp"
+    },
+    {
+      "id": "earth",
+      "source": "IMG_2253.jpg",
+      "sha256": "e0aabb7b11bdcfea70f4f7772a84f359c28bf9d602e97f534154b7a720601f65",
+      "original": {
+        "width": 265,
+        "height": 239
+      },
+      "crop": {
+        "left": 41,
+        "top": 36,
+        "width": 190,
+        "height": 174
+      },
+      "output": "/icons/detail/earth.webp"
+    },
+    {
+      "id": "water",
+      "source": "IMG_2253 11.jpg",
+      "sha256": "25da3556218c2245e370767b307569d1a9b02461a70b960088298c2a380c1ee3",
+      "original": {
+        "width": 245,
+        "height": 243
+      },
+      "crop": {
+        "left": 18,
+        "top": 29,
+        "width": 199,
+        "height": 178
+      },
+      "output": "/icons/detail/water.webp"
+    },
+    {
+      "id": "wind",
+      "source": "IMG_2253 5.jpg",
+      "sha256": "9dc19021455028c9f30994c9fb826c67a5867ff7f5f96156cd0059f737b7960e",
+      "original": {
+        "width": 249,
+        "height": 236
+      },
+      "crop": {
+        "left": 26,
+        "top": 31,
+        "width": 211,
+        "height": 188
+      },
+      "output": "/icons/detail/wind.webp"
+    },
+    {
+      "id": "writing",
+      "source": "IMG_2253 13.jpg",
+      "sha256": "846a02e0499fa3421fecd48e4f5524ca1acc124d0642bb9f5b03e4369f0d1272",
+      "original": {
+        "width": 252,
+        "height": 230
+      },
+      "crop": {
+        "left": 4,
+        "top": 16,
+        "width": 235,
+        "height": 199
+      },
+      "output": "/icons/detail/writing.webp"
+    }
+  ]
+}

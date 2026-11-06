@@ -22,7 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: localeBootstrap }} /></head>
-      <body><MotionPreference><SmoothScroll>{children}</SmoothScroll></MotionPreference></body>
+      {/* Browser extensions such as Grammarly add body attributes before hydration. */}
+      <body suppressHydrationWarning><MotionPreference><SmoothScroll>{children}</SmoothScroll></MotionPreference></body>
     </html>
   );
 }

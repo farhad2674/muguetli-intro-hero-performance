@@ -71,10 +71,15 @@
 .journalHeading .kicker{margin-bottom:18px}
 .journal h2{font:400 clamp(3rem,5.5vw,6rem)/1.1 var(--font-display);letter-spacing:-.04em;margin:0}
 .journalNote{font-size:1rem;margin:30px 0 0;line-height:1.7}
-.journalGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:40px}
+.journalGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 30px;margin-top:40px}
 .journalGrid img{width:100%;height:auto;aspect-ratio:1.3;object-fit:cover}
 .journalGrid h3{font:400 2rem var(--font-display);margin:15px 0}
 .journalGrid small{display:block;margin-top:20px}
+.journalCategory{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:20px;color:var(--plum)}
+.journalCategory small{margin-top:0}
+.journalCategory svg{width:44px;height:44px;flex-shrink:0}
+.journalGrid h3{overflow-wrap:anywhere}
+:global(html[lang=fa]) .journalGrid h3{font-family:var(--font-fa-display);letter-spacing:0;line-height:1.65}
 :global(html[lang=fa]) .introTitle,:global(html[lang=fa]) .collectionHeading h3,:global(html[lang=fa]) .bookHeading h2,:global(html[lang=fa]) .edition h3,:global(html[lang=fa]) .founderCopy h2,:global(html[lang=fa]) .consulting h2,:global(html[lang=fa]) .service h3,:global(html[lang=fa]) .journal h2{font-family:var(--font-fa-display);letter-spacing:0;line-height:1.55}
 :global(html[lang=fa]) .introTitle{font-size:clamp(4rem,10.5vw,10rem);line-height:1.4}
 :global(html[lang=fa]) .rule{transform-origin:right}
@@ -140,25 +145,29 @@
 @media(max-width:760px){.storyIntro{padding-inline:6vw}.storyIntro::before{inset-inline:6vw}.storyIntroMeta{margin-bottom:75px;letter-spacing:.08em}.storyIntroMeta span+span{display:none}.storyIntroBody h1{font-size:14vw;line-height:1.18;letter-spacing:0}.storyIntroFooter{grid-template-columns:1fr;gap:28px;margin-top:48px}.storyIntroFooter p{font-size:1rem}.storyIntroLinks{gap:18px}}
 :global(html[lang=fa]) .storyIntroBody h1{font-family:var(--font-fa-display);line-height:1.5;letter-spacing:0}
 
-/* Keep the homepage hierarchy expressive without letting section titles dominate. */
-.introTitle{font-size:clamp(4.2rem,9.5vw,10rem)}
-.collectionHeading h3{font-size:clamp(2.2rem,3.5vw,4.2rem)}
-.bookHeading h2{font-size:clamp(2.7rem,5.2vw,6.2rem)}
-.bookHeading .originalBookTitle{font-size:clamp(3.5rem,6.7vw,7.5rem)}
-.edition h3{font-size:clamp(2.3rem,3.6vw,4.2rem)}
-.founderCopy h2{font-size:clamp(2.9rem,4.8vw,6.3rem)}
-.consulting h2{font-size:clamp(2.8rem,6vw,7.2rem)}
-.service h3{font-size:clamp(1.45rem,2.2vw,2.6rem)}
-.journal h2{font-size:clamp(2.8rem,5.3vw,6.5rem)}
-.journalGrid h3{font-size:1.75rem}
-.storyIntroBody h1{font-size:clamp(3.25rem,7.6vw,8rem)}
-
+/* Compact editorial rhythm, with the existing film and scroll scenes intact. */
+.sectionTop{margin-bottom:32px}
+.storyIntro{padding-block:48px 56px}
+.storyIntroMeta{margin-bottom:40px}
+.storyIntroBody h1{font-size:clamp(2.5rem,4.8vw,4.75rem);line-height:1.12;max-width:20ch}
+.storyIntroBody h1 em{font-style:normal}
+.storyIntroFooter{margin-top:32px;gap:32px}
+.introTitle,:global(html[lang=fa]) .introTitle{font-size:clamp(3rem,6vw,6rem)}
+.collectionHeading h3,.bookHeading h2,.founderCopy h2,.consulting h2,.journal h2{font-size:clamp(2rem,3.3vw,3.5rem);line-height:1.15}
+.bookHeading .originalBookTitle{font-size:clamp(2.5rem,4vw,4.5rem)}
+.edition h3{font-size:clamp(1.8rem,2.6vw,2.75rem)}
+.service h3{font-size:clamp(1.4rem,1.8vw,2rem)}
+.journalGrid h3{font-size:1.5rem}
+.founder{padding-block:64px 48px}
+.consulting,.journal{padding-block:56px}
+.journalHeading{padding-bottom:24px}
+.services{margin-top:32px}
 @media(max-width:760px){
-  .introTitle{font-size:14vw}
-  .bookHeading h2{font-size:9.5vw}
-  .bookHeading .originalBookTitle{font-size:14vw}
-  .founderCopy h2{font-size:10.5vw}
-  .consulting h2{font-size:10.5vw}
-  .journal h2{font-size:2.8rem}
-  .storyIntroBody h1{font-size:12vw}
+  .storyIntro{padding-block:40px}
+  .storyIntroMeta{margin-bottom:28px}
+  .storyIntroBody h1{font-size:clamp(2.1rem,8vw,3rem)}
+  .storyIntroFooter{margin-top:24px;gap:20px}
+  .introTitle,:global(html[lang=fa]) .introTitle{font-size:11vw}
+  .bookHeading .originalBookTitle{font-size:11vw}
+  .founder,.consulting,.journal{padding-block:40px}
 }

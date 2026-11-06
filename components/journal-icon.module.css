@@ -1,0 +1,4 @@
+.icon{display:block;flex-shrink:0;color:var(--plum);max-width:100%;height:auto}
+.wash{fill:var(--editorial-mint)}
+.accent{stroke:var(--teal)}
+.orbit{stroke:var(--plum);stroke-opacity:.28;stroke-dasharray:2 5}

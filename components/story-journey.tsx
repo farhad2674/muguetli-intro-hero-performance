@@ -7,6 +7,7 @@ import { literaryElements, bookExcerpts } from '@/lib/book-story';
 import { editorial, type Collection } from '@/lib/editorial';
 import { t, type Locale } from '@/lib/muguetli';
 import { BookQuote } from './book-quote';
+import { ElementFilm } from './element-film';
 import { ScarfGallery } from './scarf-gallery';
 import { useMotionPreference } from './motion-preference';
 import { useArrivalReady } from './arrival-ready';
@@ -263,6 +264,7 @@ export function StoryJourney({ locale, collections }: { locale: Locale; collecti
           <p className={styles.eyebrow} data-panel-reveal>{copy('THE FOUR MOTHERS', 'چهار مادر')} / {t(element.name, locale)}</p>
           <h2 data-panel-reveal>{t(element.title, locale)}</h2>
           <div className={styles.passage} data-panel-reveal><BookQuote excerpt={element.excerpt} locale={locale} compact /></div>
+          <ElementFilm element={element.id} locale={locale} />
           <Link className={styles.textLink} href={`/${locale}/mythology#${element.id}`}>{copy('Inside the story', 'درون داستان')}<ArrowUpRight size={17} /></Link>
         </div>
       </article>)}

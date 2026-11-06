@@ -1,4 +1,5 @@
 import type { LocalizedText } from './muguetli';
+import { journalEssays } from './journal-essays';
 
 export interface Collection {
   id: number;
@@ -9,7 +10,15 @@ export interface Collection {
   image: string;
   url: string;
 }
-export interface JournalArticle { id: string; title: LocalizedText; excerpt: LocalizedText; category: LocalizedText; image: string; url: string; date?: string }
+export interface JournalSection { id: string; heading?: string; paragraphs: string[] }
+export interface JournalArticle {
+  id: string; title: LocalizedText; excerpt: LocalizedText; category: LocalizedText;
+  image: string; url: string; date?: string;
+  imageAlt?: LocalizedText; author?: LocalizedText;
+  icon?: 'flower' | 'weave' | 'scissors' | 'pixels';
+  body?: { fa: JournalSection[]; en: JournalSection[] };
+  cta?: { href: string; label: LocalizedText };
+}
 export interface Book { title: LocalizedText; originalTitle: string; subtitle: LocalizedText; author: LocalizedText; synopsis: LocalizedText; format: LocalizedText; language: LocalizedText; image?: string; url?: string; ebookUrl?: string }
 // Only approved editorial records belong here. Missing records remain unpublished.
 export const editorial: { founder: { name: LocalizedText; role: LocalizedText; image: string; copy: LocalizedText } | null; book: Book | null; articles: JournalArticle[] } = {
@@ -32,6 +41,7 @@ export const editorial: { founder: { name: LocalizedText; role: LocalizedText; i
     synopsis: { fa: 'زنگله‌ام، سفر مقدس گل موگه، روایت گذر از سوگ به خودشناسی است؛ سفری در ۲۱ مرحله، از سوزش در آتش و ریشه‌گرفتن در خاک تا فرو‌رفتن در ناخودآگاهِ آب و رهایی با باد.', en: 'Zangole’am, The Sacred Journey of the Lily of the Valley, follows a passage from grief to self-discovery across 21 stages: burning in fire, rooting in earth, descending into the subconscious of water and finding liberation with the wind.' },
   },
   articles: [
+    ...journalEssays,
     {
       id: 'how-to-wear-a-pocket-square',
       category: { en: 'Wearable Art / Guide', fa: 'هنر پوشیدنی / راهنما' },

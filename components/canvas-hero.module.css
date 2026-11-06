@@ -5,7 +5,7 @@
 @media(max-width:768px){.track{height:100svh!important}.stage{position:relative}.beat{inset-inline:7vw;top:48%;width:86vw}.beat h1,.beat h2{font-size:clamp(2.5rem,11vw,4.5rem)}.beatPill{font-size:.65rem;margin-bottom:22px}.beat>p{font-size:1rem;max-width:21rem;margin-top:23px}.mobileExplore{display:flex}.scrimLeft{background:linear-gradient(90deg,rgba(0,0,0,.45),transparent 80%)}.poster{object-position:57% center}}
 @media(prefers-reduced-motion:reduce){.track{height:100svh!important}.stage{position:relative}.meta{display:none}.mobileExplore{display:flex}}
 
-.beat h1,.beat h2{font-size:clamp(2.7rem,4.7vw,4.8rem)}
-@media(max-width:768px){.beat h1,.beat h2{font-size:clamp(2.25rem,9vw,3.8rem)}}
+.beat h1,.beat h2{font-size:clamp(2.25rem,3.5vw,3.6rem)}
+@media(max-width:768px){.beat h1,.beat h2{font-size:clamp(1.9rem,7.5vw,2.8rem)}}
 
 .stage::after{content:"";position:absolute;inset:auto 0 0;height:30svh;background:linear-gradient(transparent,var(--plum));opacity:var(--exit-progress,0);pointer-events:none}

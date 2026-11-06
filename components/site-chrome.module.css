@@ -121,18 +121,10 @@
 
 .menuButton:hover, .menuButton:focus-visible { background: var(--plum); color: var(--paper); }
 
-.menuGlyph {
-  width: 24px;
-  height: 14px;
-  display: grid;
-  align-content: center;
-  gap: 6px;
-}
-
-.menuGlyph span { display: block; width: 100%; height: 1px; background: currentColor; transition: transform .3s; }
-.menuGlyph span:last-child { width: 70%; justify-self: end; }
-.menuButton:hover .menuGlyph span:first-child { transform: translateX(3px); }
-.menuButton:hover .menuGlyph span:last-child { transform: translateX(-3px); }
+.brandIcon { display: block; flex: 0 0 auto; width: 32px; height: 32px; object-fit: contain; }
+.headerIcon { width: 32px; height: 32px; }
+.menuIcon { width: 32px; height: 32px; }
+.menuButton:hover .menuIcon, .menuButton:focus-visible .menuIcon { filter: brightness(0) invert(1); }
 
 .menuPanel {
   width: min(1080px, 100vw) !important;
@@ -182,7 +174,7 @@
 }
 
 .wearableMenu { padding: clamp(34px, 5vw, 68px) clamp(24px, 5vw, 64px); }
-.menuHeading { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: start; gap: 18px; }
+.menuHeading { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: start; gap: 18px; }
 .menuHeading > span { padding-top: 8px; color: var(--plum); font-size: .65rem; letter-spacing: .15em; direction: ltr; }
 .menuHeading p { margin: 0 0 8px; color: var(--plum); font-size: .72rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .menuHeading h2 { margin: 0; font: 400 clamp(2.3rem, 4vw, 4.4rem)/.95 var(--font-display); letter-spacing: -.055em; }
@@ -193,22 +185,23 @@
 .browseGroup h3 { margin: 0 0 18px; color: #6e666b; font-size: .68rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .collectionLinks, .formLinks { border-top: 1px solid var(--editorial-line); }
 .collectionLinks a, .formLinks a {
-  min-height: 54px;
+  min-height: 64px;
   display: grid;
   align-items: center;
   border-bottom: 1px solid var(--editorial-line);
   transition: color .25s, padding .3s, background .25s;
 }
-.collectionLinks a { grid-template-columns: 34px 1fr auto; gap: 12px; }
+.collectionLinks a { grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; }
 .collectionLinks a > span { color: var(--plum); font-size: .6rem; direction: ltr; }
 .collectionLinks strong { font: 400 clamp(1.08rem, 1.5vw, 1.42rem)/1.2 var(--font-display); }
 :global(html[lang='fa']) .collectionLinks strong { font-family: var(--font-fa-display); }
-.formLinks a { grid-template-columns: 76px 1fr auto; gap: 14px; font-size: .83rem; }
-.formSize { color: var(--plum); font-variant-numeric: tabular-nums; direction: ltr; }
+.formLinks a { grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; font-size: .83rem; }
+.formLabel { display: grid; gap: 4px; }
+.formSize { font-size: .65rem; color: var(--plum); font-variant-numeric: tabular-nums; direction: ltr; }
 .collectionLinks a:hover, .formLinks a:hover { padding-inline: 10px; background: var(--editorial-tint); color: var(--plum); }
 
 .menuNavigation { padding: clamp(34px, 5vw, 68px) clamp(24px, 4vw, 48px); border-inline-start: 1px solid var(--editorial-line); background: #fbfafb; }
-.menuNavigation a { min-height: 78px; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 10px; border-bottom: 1px solid var(--editorial-line); }
+.menuNavigation a { min-height: 78px; display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 10px; border-bottom: 1px solid var(--editorial-line); }
 .menuNavigation a:first-child { border-top: 1px solid var(--editorial-line); }
 .menuNavigation a > span { color: var(--plum); font-size: .6rem; direction: ltr; }
 .menuNavigation strong { font: 400 clamp(1.16rem, 1.65vw, 1.55rem)/1.2 var(--font-display); }
@@ -268,13 +261,15 @@
   .header { padding-inline: 18px; }
   .brandLine { display: none; }
   .menuLabel { display: none; }
-  .menuButton { width: 44px; padding: 0 9px; border-radius: 50%; }
-  .menuGlyph { width: 22px; }
+  .menuButton { width: 44px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+  .menuButton:hover, .menuButton:focus-visible { background: transparent; }
+  .menuButton:hover .menuIcon, .menuButton:focus-visible .menuIcon { filter: none; }
+  .menuIcon { width: 32px; height: 32px; }
   .menuTop { min-height: 84px; padding-inline: 22px; }
   .closeButton > span:first-child { display: none; }
   .closeButton { width: 44px; padding: 0; border-radius: 50%; }
   .wearableMenu { padding: 34px 22px 44px; }
-  .menuHeading { grid-template-columns: 26px minmax(0, 1fr); gap: 8px; }
+  .menuHeading { grid-template-columns: 44px minmax(0, 1fr); gap: 12px; }
   .menuHeading h2 { font-size: clamp(2.25rem, 12vw, 3.4rem); }
   .viewAll { grid-column: 2; margin-top: 15px; width: fit-content; }
   .browsePaths { grid-template-columns: 1fr; gap: 38px; margin-top: 46px; }
@@ -294,5 +289,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .header, .menuGlyph span, .collectionLinks a, .formLinks a { transition: none !important; }
+  .header, .collectionLinks a, .formLinks a { transition: none !important; }
 }
+
+.footerMap a, .footerInfo a { gap: 10px; }
+.footerMap .brandIcon, .footerInfo .brandIcon { width: 32px; height: 36px; filter: brightness(0) invert(1); }
+.footerSocials { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; }
+.footerSocials a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: .875rem; }
+.socialIcon { display: grid; place-items: center; flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); }
+.socialIcon .brandIcon { width: 44px; height: 44px; }
+
+.footer a:focus-visible { outline-color: var(--paper); }
+
+/* Artwork has more detail than a conventional line icon; give it optical space. */
+.menuHeading > .brandIcon, .collectionLinks .brandIcon, .formLinks .brandIcon { width: 44px; height: 44px; }
+.menuNavigation .brandIcon { width: 40px; height: 40px; }
+.footerMap a, .footerInfo a { min-height: 44px; }

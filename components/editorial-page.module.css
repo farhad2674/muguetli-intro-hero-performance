@@ -1,29 +1,29 @@
 .page { min-height: 100svh; padding-top: 4.7rem; background: var(--porcelain); }
-.hero { min-height: 88svh; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(7rem, 14vw, 12rem) clamp(1.25rem, 7vw, 7rem); }
+.hero { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 7vw, 7rem); }
 .hero > p { margin: 0 0 1.2rem; color: var(--teal); font-size: .76rem; font-weight: 780; letter-spacing: .17em; }
 .hero h1 {
-  max-width: 11ch; margin: 0; font-family: var(--font-display); font-size: clamp(3.7rem, 10vw, 10rem);
+  max-width: 22ch; margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 4.5vw, 4.5rem);
   font-weight: 400; letter-spacing: -.06em; line-height: .78;
 }
 [dir='rtl'] .hero h1 { font-family: var(--font-fa-display); line-height: 1.06; letter-spacing: -.04em; }
-.hero > span { max-width: 42rem; margin-top: 2rem; font-size: clamp(1.1rem, 2vw, 1.55rem); }
+.hero > span { max-width: 42rem; margin-top: 1.25rem; font-size: clamp(1rem, 1.2vw, 1.125rem); }
 .chapters { display: grid; gap: 0; }
-.chapters article { min-height: 88svh; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); align-items: center; gap: clamp(2rem, 7vw, 8rem); padding: clamp(4rem, 9vw, 8rem) clamp(1.25rem, 7vw, 7rem); border-top: 1px solid color-mix(in srgb, var(--plum) 17%, transparent); }
+.chapters article { min-height: 0; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); align-items: center; gap: clamp(2rem, 7vw, 8rem); padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 7vw, 7rem); border-top: 1px solid color-mix(in srgb, var(--plum) 17%, transparent); }
 .chapters article:nth-child(even) { background: var(--plum); color: var(--porcelain); }
 .chapters article:nth-child(even) img { order: 2; }
 .chapters img { display: block; width: 100%; mix-blend-mode: multiply; }
 .chapters article:nth-child(even) img { mix-blend-mode: screen; }
 .chapters article p { color: var(--teal); font-size: .75rem; font-weight: 800; letter-spacing: .15em; }
-.chapters h2 { margin: .7rem 0; font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7rem); font-weight: 400; letter-spacing: -.055em; line-height: .84; }
+.chapters h2 { margin: .7rem 0; font-family: var(--font-display); font-size: clamp(2rem, 3vw, 3rem); font-weight: 400; letter-spacing: -.055em; line-height: .84; }
 [dir='rtl'] .chapters h2 { font-family: var(--font-fa-display); line-height: 1.08; }
 .chapters small { display: block; margin-top: 2.2rem; opacity: .62; }
-.body { display: grid; gap: 1.5rem; max-width: 52rem; padding: clamp(6rem, 12vw, 11rem) clamp(1.25rem, 7vw, 7rem); font-size: clamp(1.1rem, 2vw, 1.45rem); }
+.body { display: grid; gap: 1.5rem; max-width: 52rem; padding: clamp(2rem, 4vw, 3.5rem) clamp(1.25rem, 7vw, 7rem); font-size: clamp(1.1rem, 2vw, 1.45rem); }
 .body a { width: fit-content; margin-top: 1.5rem; border-bottom: 2px solid var(--teal); padding-bottom: .35rem; font-size: 1rem; font-weight: 750; }
 .body a:hover { color: var(--teal); }
 .pending { width: fit-content; border: 1px solid color-mix(in srgb, var(--plum) 26%, transparent); border-radius: 999px; padding: .7rem 1rem; font-size: .84rem; opacity: .68; }
 @media (max-width: 760px) {
   .page { padding-top: 4rem; }
-  .chapters article { grid-template-columns: 1fr; min-height: 100svh; }
+  .chapters article { grid-template-columns: 1fr; min-height: 0; }
   .chapters article:nth-child(even) img { order: 0; }
 }
 /* Editorial destinations share the homepage typography and collection imagery. */
@@ -33,7 +33,7 @@
 .hero { animation:page-enter .85s cubic-bezier(.22,1,.36,1) both; }
 .catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:50px;padding:0 7vw 80px}.catalog img{width:100%;aspect-ratio:4/5;object-fit:cover}.catalog h2{font:400 2.3rem var(--font-display);margin:20px 0 10px}.bookDetail{display:grid;grid-template-columns:1fr 1fr;gap:7vw;padding:0 7vw 80px;align-items:center}.bookDetail img{width:100%;max-width:450px;height:auto}.bookDetail h2{font:400 2.5rem var(--font-display)}.bookDetail p{font-size:1.1rem;line-height:1.8}.bookDetail a{display:block;width:fit-content;margin-top:25px;border-bottom:1px solid currentColor;padding-bottom:7px}
 @keyframes page-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:760px){.catalog,.bookDetail{grid-template-columns:1fr;gap:35px}.hero h1{font-size:clamp(2.8rem,12vw,5rem);max-width:100%}.hero{min-height:70svh}}
+@media(max-width:760px){.catalog,.bookDetail{grid-template-columns:1fr;gap:35px}.hero h1{font-size:clamp(2.25rem,8vw,3rem);max-width:100%}.hero{min-height:0}}
 .suppliedCollection{padding:0 7vw 80px}
 .founderDetail{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;padding:0 7vw 60px}
 .founderDetail img{width:100%;height:auto;max-width:550px}
@@ -41,7 +41,7 @@
 .founderDetail p{font-size:1.1rem;line-height:1.9}
 :global(html[lang=fa]) .founderDetail h2{font-family:var(--font-fa-display);letter-spacing:0;line-height:1.6}
 @media(max-width:760px){.founderDetail{grid-template-columns:1fr;gap:30px}}
-.hero h1.originalBookTitle{font-family:var(--font-fa-display);font-size:clamp(4rem,11vw,10rem);line-height:1.6;letter-spacing:0;max-width:100%;text-align:left}
+.hero h1.originalBookTitle{font-family:var(--font-fa-display);font-size:clamp(2.75rem,5vw,4.5rem);line-height:1.6;letter-spacing:0;max-width:100%;text-align:left}
 :global(html[lang=fa]) .hero h1.originalBookTitle{text-align:right}
 .bookReading{padding:0 7vw 40px}
 .bookIntroduction{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7vw;align-items:start}
@@ -61,11 +61,12 @@
 .chapters article>img{mix-blend-mode:normal}
 .chapters article:nth-child(even)>img{mix-blend-mode:normal}
 :global(html[lang=fa]) .bookIntroduction h2{font-family:var(--font-fa-display);line-height:1.7;letter-spacing:0}
-@media(max-width:760px){.bookIntroduction{grid-template-columns:1fr;gap:40px}.editionNotice{display:block;margin-top:40px}.editionNotice>span{display:block;margin-top:25px}.bookLinks{display:block}.bookLinks a{display:table;margin-top:12px}.chapters .elementTitle{font-size:2rem}.hero h1.originalBookTitle{font-size:18vw}}
+@media(max-width:760px){.bookIntroduction{grid-template-columns:1fr;gap:40px}.editionNotice{display:block;margin-top:40px}.editionNotice>span{display:block;margin-top:25px}.bookLinks{display:block}.bookLinks a{display:table;margin-top:12px}.chapters .elementTitle{font-size:2rem}.hero h1.originalBookTitle{font-size:11vw}}
 
 /* Inner pages use the same quiet white field as the homepage. */
 .page{background:var(--paper);color:var(--ink)}
 .hero{background:var(--paper)}
+.journalHero{min-height:0;padding-bottom:clamp(2rem,3vw,3rem)}
 .hero>p,.chapters article p{color:var(--plum)}
 .chapters article{border-color:var(--editorial-line)}
 .chapters article:nth-child(even){background:var(--editorial-tint);color:var(--ink)}

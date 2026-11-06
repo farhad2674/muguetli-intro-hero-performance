@@ -1,0 +1,21 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": [
+    {
+      "name": "white-bells",
+      "prompt": "Use case: photorealistic-natural. Asset type: Muguetli luxury literary journal cover, landscape 3:2. Primary request: a meaningful photographic still life about the paradoxical lily of the valley and transformation. Subject: a delicate living arch of white lily-of-the-valley bell flowers and deep green leaves emerging from dark earth in a low sculptural charcoal vessel, resting on flowing ivory silk, a tiny ember-colored reflection on the silk and a quiet ripple of water nearby, air suggested by the lifting silk edge. Scene: refined artist's atelier, warm off-white plaster with a muted plum shadow, restrained teal reflected light. Composition: close editorial art photograph with generous breathing room, flowers the clear hero, tactile botanical realism, quiet cinematic side lighting. No text, letters, logo, watermark, collage, infographic, or mock website. Do not depict a commercial product or packaging."
+    },
+    {
+      "name": "woven-poetry",
+      "prompt": "Use case: photorealistic-natural. Asset type: Muguetli literary journal cover, landscape 3:2. Primary request: A sculptural length of ivory silk suspended in an elegant continuous loop above a dark stone plinth, fine plum and teal geometric woven threads, an open blank handmade-paper book beneath it, shadow suggesting a musical wave. Theme: Persian mystical poetry becoming contemporary wearable art. No printed writing, no literal calligraphy, no commercial product. Style: tactile luxury editorial photography with quiet cinematic side light, realistic materials, subtle film grain, generous breathing room, museum-quality art direction, consistent white/plum/teal palette. Constraints: no text, letters, logo, watermark, collage, infographic or website mockup."
+    },
+    {
+      "name": "hair-rebirth",
+      "prompt": "Use case: photorealistic-natural. Asset type: Muguetli literary journal cover, landscape 3:2. Primary request: A sculptural still life of an elegant dark lock of hair curved in an upward spiral beside a professional steel hairdressing scissor and comb on ivory stone, an oval mirror reflecting diffuse light, subtle plum shadows and teal reflections. Theme: hair architecture and release, quiet artistic atelier, no people, no head or face, no commercial product. Style: tactile luxury editorial photography with quiet cinematic side light, realistic materials, subtle film grain, generous breathing room, museum-quality art direction, consistent white/plum/teal palette. Constraints: no text, letters, logo, watermark, collage, infographic or website mockup."
+    },
+    {
+      "name": "silk-pixels",
+      "prompt": "Use case: photorealistic-natural. Asset type: Muguetli literary journal cover, landscape 3:2. Primary request: A flowing ivory silk ribbon gradually dissolving into delicate luminous teal and muted plum particles, suspended above a dark reflective surface in a warm off-white artist atelier. Theme: the passage from tactile textiles to digital imagination. Photoreal silk at one end, fine art digital particles at the other, elegant restrained light, no sci-fi interface or neon clutter. Style: tactile luxury editorial photography with quiet cinematic side light, realistic materials, subtle film grain, generous breathing room, museum-quality art direction, consistent white/plum/teal palette. Constraints: no text, letters, logo, watermark, collage, infographic or website mockup."
+    }
+  ]
+}

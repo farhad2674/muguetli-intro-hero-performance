@@ -8,6 +8,8 @@ import { BookQuote } from './book-quote';
 import { bookExcerpts, literaryElements } from '@/lib/book-story';
 import { PrivateInquiry } from './private-inquiry';
 import { CollectionIndex } from './catalog-page';
+import { JournalIndex } from './journal-index';
+import { BrandStoryFeature } from './brand-story-feature';
 
 export async function EditorialPage({ locale, slug }: { locale: Locale; slug: PageSlug }) {
   const page = pages[slug];
@@ -20,7 +22,7 @@ export async function EditorialPage({ locale, slug }: { locale: Locale; slug: Pa
   const editionUrl = slug === 'ebook' ? book?.ebookUrl : book?.url;
   return (
     <main className={styles.page} dir={locale === 'fa' ? 'rtl' : 'ltr'}>
-      <header className={styles.hero}>
+      <header className={`${styles.hero}${slug === 'journal' ? ` ${styles.journalHero}` : ''}`}>
         <p>{t(page.eyebrow, locale)}</p>
         <h1 className={book ? styles.originalBookTitle : undefined} lang={book ? 'fa' : locale} dir={book ? 'rtl' : undefined}>{book ? book.originalTitle : t(page.title, locale)}</h1>
         <span>{t(page.lede, locale)}</span>
@@ -36,7 +38,7 @@ export async function EditorialPage({ locale, slug }: { locale: Locale; slug: Pa
         <div className={styles.editionNotice}><div><h3>{slug === 'ebook' ? (fa ? 'نسخهٔ الکترونیکی · فارسی' : 'Digital edition · Persian') : (fa ? 'نسخهٔ چاپی · فارسی' : 'Physical edition · Persian')}</h3><p>{fa ? 'متن اصلی کتاب به زبان فارسی است.' : 'The book’s original text is Persian. English excerpts on this site are translations.'}</p></div>{editionUrl ? <a href={editionUrl}>{fa ? (slug === 'ebook' ? 'دریافت کتاب الکترونیکی' : 'خرید کتاب') : (slug === 'ebook' ? 'Get the eBook' : 'Buy the book')} ↗</a> : <span>{fa ? (slug === 'ebook' ? 'دانلود هنوز در دسترس نیست' : 'خرید هنوز در دسترس نیست') : (slug === 'ebook' ? 'Download not yet available' : 'Purchase not yet available')}</span>}</div>
         <nav className={styles.bookLinks} aria-label={fa ? 'ادامهٔ داستان' : 'Continue the story'}><Link href={`/${locale}/mythology`}>{fa ? 'چهار عنصر؛ ۲۱ مرحله' : 'Four elements. 21 stages.'} ↗</Link><Link href={`/${locale}/${slug === 'ebook' ? 'books' : 'ebook'}`}>{slug === 'ebook' ? (fa ? 'دربارهٔ نسخهٔ چاپی' : 'About the physical book') : (fa ? 'دربارهٔ نسخهٔ الکترونیکی' : 'About the eBook')} ↗</Link></nav>
       </section>}
-      {articles.length > 0 && <section className={styles.catalog}>{articles.map(a=><a key={a.id} href={a.url.replace(/^\/en(?=\/|$)/, `/${locale}`)}><img src={a.image} alt="" width={800} height={600} loading="lazy"/><small>{t(a.category,locale)}</small><h2>{t(a.title,locale)}</h2><p>{t(a.excerpt,locale)}</p></a>)}</section>}
+      {articles.length > 0 && <JournalIndex articles={articles} locale={locale} />}
 
       {slug === 'size-guide' && <section className={styles.sizeMatrix} aria-label={fa ? 'اندازه‌های منسوجات' : 'Textile sizes'}>
         <article id="pocket-square" tabIndex={-1}><span>01</span><p>50 × 50 cm</p><h2>{fa ? 'دستمال جیبی' : 'Pocket square'}</h2><small>{fa ? 'مربعی کوچک برای جیب، گردن یا قاب‌کردن بخشی از تصویر.' : 'A small square for a pocket, the neck, or framing one part of an image.'}</small></article>
@@ -47,6 +49,7 @@ export async function EditorialPage({ locale, slug }: { locale: Locale; slug: Pa
 
       {slug === 'collections' && <section className={styles.suppliedCollection} aria-label={locale === 'fa' ? 'روسری‌های موگه‌تلی' : 'Muguetli scarves'}><ScarfGallery locale={locale} /></section>}
       {slug === 'about' && editorial.founder && <section className={styles.founderDetail}><img src={editorial.founder.image} alt={t(editorial.founder.name, locale)} width={853} height={1280} loading="lazy" /><div><h2>{fa ? 'از سوگ، جهانی زاده شد.' : 'From grief, a world.'}</h2><p>{t(editorial.founder.copy, locale)}</p><Link href={`/${locale}/mythology`}>{fa ? 'اندیشهٔ چهار عنصر' : 'The idea of the four elements'} ↗</Link></div></section>}
+      {slug === 'about' && <BrandStoryFeature locale={locale} />}
 
       {slug === 'mythology' && (
         <section className={styles.chapters} aria-label={locale === 'fa' ? 'چهار فصل' : 'Four chapters'}>

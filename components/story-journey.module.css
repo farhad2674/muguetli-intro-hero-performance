@@ -41,20 +41,20 @@
 
 .giantWord{font-size:clamp(4rem,10vw,11rem)}
 .elementCopy h2{font-size:clamp(2.2rem,3.5vw,4.5rem)}
-.productIntro h2{font-size:clamp(2.6rem,4.3vw,5rem)}
+.productIntro h2{font-size:clamp(2rem,3.3vw,3.5rem)}
 .bookIdentity h2{font-size:clamp(4rem,7vw,8rem)}
 .editionHeading h2{font-size:clamp(2.2rem,3.6vw,4rem)}
 .edition h3{font-size:clamp(2.2rem,3.4vw,3.8rem)}
 
 @media(max-width:1023px){
   .elementCopy h2{font-size:2.5rem}
-  .productIntro h2{font-size:3.1rem}
+  .productIntro h2{font-size:2.5rem}
   .bookIdentity h2{font-size:10vw}
 }
 @media(max-width:700px){
   .giantWord,:global(html[lang=fa]) .giantWord{font-size:19vw}
   .elementCopy h2{font-size:2.3rem}
-  .productIntro h2{font-size:3rem}
+  .productIntro h2{font-size:2.25rem}
   .bookIdentity h2{font-size:18vw}
   .editionHeading h2{font-size:2.4rem}
   .edition h3{font-size:2.2rem}
@@ -64,7 +64,7 @@
    through the pinned journey, while the drawn field reacts gently to a pointer. */
 .collectionChapter{--pointer-x-small:0px;--pointer-x-small-neg:0px;--pointer-y-small:0px;--pointer-y-small-neg:0px;--pointer-x-large:0px;--pointer-x-large-neg:0px;--pointer-y-large:0px;--pointer-y-large-neg:0px;--pointer-rotate:0deg;--pointer-rotate-neg:0deg;--collection-shift:0px;--collection-hint-shift:0px;--collection-rotation:0deg;background:var(--paper);color:var(--ink);isolation:isolate;display:flex;flex-direction:column;justify-content:center}
 .collectionIntro{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.55fr);align-items:end;gap:7vw;margin-bottom:clamp(24px,3.2vh,42px)}
-.collectionIntro h2{font:400 clamp(3.2rem,6.3vw,7.4rem)/.85 var(--font-display);letter-spacing:-.065em;margin:0;color:var(--ink)}
+.collectionIntro h2{font:400 clamp(2.25rem,3.6vw,3.75rem)/.85 var(--font-display);letter-spacing:-.065em;margin:0;color:var(--ink)}
 .collectionStatement{justify-self:end;max-width:390px}.collectionStatement>p{font-size:.95rem;line-height:1.75;margin:0}.collectionStatement .textLink{margin-top:12px}
 .collectionRail{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,28px);transform:translate3d(var(--collection-shift),0,0);transition:transform .08s linear}
 .collectionCard{--card-x:var(--pointer-x-small);--card-y:var(--pointer-y-small);--card-rotate:var(--pointer-rotate);position:relative;display:flex;flex-direction:column;min-width:0;transform:translate3d(var(--card-x),var(--card-y),0) rotate(var(--card-rotate));transition:transform .35s cubic-bezier(.2,.75,.2,1)}
@@ -82,7 +82,7 @@
 :global(html[lang=fa]) .collectionIntro h2,:global(html[lang=fa]) .collectionCardCopy strong{font-family:var(--font-fa-display);letter-spacing:0;line-height:1.45}
 
 @media(max-width:1023px){.collectionChapter{padding-block:80px}.collectionRail{grid-template-columns:1fr 1fr}.collectionCard:nth-child(2),.collectionCard:nth-child(4){margin-top:45px}.collectionIntro{align-items:start}.collectionHint{display:none}}
-@media(max-width:700px){.collectionChapter{padding-inline:0;overflow:hidden}.collectionIntro{grid-template-columns:1fr;padding-inline:6vw;gap:24px;margin-bottom:36px}.collectionIntro h2{font-size:17vw}.collectionStatement{justify-self:start;max-width:none}.collectionRail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 6vw 18px;transform:none;scrollbar-width:none}.collectionRail::-webkit-scrollbar{display:none}.collectionCard{flex:0 0 min(76vw,340px);scroll-snap-align:center;transform:none!important;margin-top:0!important}.collectionSigil{aspect-ratio:1}.collectionAtmosphere{opacity:.65}.orbitOne{width:90vw;height:36vw;top:19%}.orbitTwo{width:70vw;height:28vw}.drawnThread{right:4%;top:8%}}
+@media(max-width:700px){.collectionChapter{padding-inline:0;overflow:hidden}.collectionIntro{grid-template-columns:1fr;padding-inline:6vw;gap:24px;margin-bottom:36px}.collectionIntro h2{font-size:clamp(2rem,9vw,3rem)}.collectionStatement{justify-self:start;max-width:none}.collectionRail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 6vw 18px;transform:none;scrollbar-width:none}.collectionRail::-webkit-scrollbar{display:none}.collectionCard{flex:0 0 min(76vw,340px);scroll-snap-align:center;transform:none!important;margin-top:0!important}.collectionSigil{aspect-ratio:1}.collectionAtmosphere{opacity:.65}.orbitOne{width:90vw;height:36vw;top:19%}.orbitTwo{width:70vw;height:28vw}.drawnThread{right:4%;top:8%}}
 @media(prefers-reduced-motion:reduce){.collectionRail,.collectionCard,.collectionSigil:before,.collectionSigil:after,.sigilOrbit,.sigilPrimary,.sigilParticles,.pointerBloom,.orbit,.drawnThread,.collectionHint span{transform:none!important;transition:none!important}}
 
 /* The two campaign compositions share the existing chapter's art/reveal motion. */
@@ -91,7 +91,7 @@
 .bookArtwork picture,.bookArtwork img{display:block;width:100%}
 .bookArtwork img{height:auto;aspect-ratio:3/2;object-fit:contain}
 .bookCopy{min-width:0}
-.book .bookIdentity h2,.journey[data-horizontal=true] .bookIdentity h2{font-size:clamp(3rem,4.5vw,5.5rem);line-height:1.3}
+.book .bookIdentity h2,.journey[data-horizontal=true] .bookIdentity h2{font-size:clamp(2.5rem,3.5vw,3.5rem);line-height:1.3}
 .book .transliteration{font-size:1.45rem;margin:4px 0 12px}
 .book .subtitle{font-size:clamp(1.1rem,1.45vw,1.6rem);line-height:1.65;margin:12px 0}
 .book .eyebrow{margin-bottom:12px}
@@ -119,7 +119,7 @@
   .book{grid-template-columns:1fr;gap:32px;padding-top:0}
   .bookArtwork{margin-inline:-6vw;width:100vw}
   .bookArtwork img{aspect-ratio:2/3}
-  .book .bookIdentity h2{font-size:18vw}
+  .book .bookIdentity h2{font-size:clamp(2rem,10vw,2.75rem)}
   .book .subtitle{font-size:1.3rem}
   .bookPassage{margin-top:28px}
 }

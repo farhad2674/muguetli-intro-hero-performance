@@ -7,6 +7,7 @@ import { StoryJourney } from './story-journey';
 import { StoryRibbon } from './story-ribbon';
 import { t, type ElementId, type FeaturedProduct, type Locale } from '@/lib/muguetli';
 import { editorial, services, values, type Collection } from '@/lib/editorial';
+import { JournalIcon } from './journal-icon';
 import styles from './home-page.module.css';
 
 export function HomePage({ locale, products, collections }: { locale: Locale; products: Partial<Record<ElementId, FeaturedProduct[]>>; collections: Collection[] }) {
@@ -15,6 +16,8 @@ export function HomePage({ locale, products, collections }: { locale: Locale; pr
   const number = (n: number) => new Intl.NumberFormat(fa ? 'fa-IR' : 'en', { minimumIntegerDigits: 2 }).format(n);
   const pieces = Array.from(new Map(Object.values(products).flat().filter(Boolean).map(p => [p.id, p])).values());
   const cards = collections.length ? collections : pieces.map(p => ({ id: p.id, name: p.name, image: p.image, description: '', url: p.permalink }));
+  const essays = editorial.articles.filter(article => article.body);
+  const journalArticles = essays.length ? essays : editorial.articles.slice(0, 3);
 
   return <main>
     <noscript><style>{'dialog[data-arrival-preloader]{display:none!important}'}</style></noscript>
@@ -59,7 +62,7 @@ export function HomePage({ locale, products, collections }: { locale: Locale; pr
 
       <section className={styles.journal} id="journal" tabIndex={-1} aria-labelledby="journal-title">
         <div className={styles.journalHeading} data-reveal><div><p className={styles.kicker}>{copy('05 / NOTES FROM OUR WORLD', '۰۵ / یادداشت‌هایی از جهان ما')}</p><h2 id="journal-title">{copy('The journal', 'ژورنال')}<span>.</span></h2></div><Link className={styles.textLink} href={`/${locale}/journal`}>{copy('All stories', 'همهٔ داستان‌ها')}<ArrowUpRight size={19} /></Link></div>
-        {editorial.articles.length ? <div className={styles.journalGrid}>{editorial.articles.slice(0, 3).map(a => <a href={a.url.replace(/^\/en(?=\/|$)/, `/${locale}`)} key={a.id} data-reveal><img src={a.image} alt="" width={700} height={500} loading="lazy" decoding="async" /><small>{t(a.category, locale)}</small><h3>{t(a.title, locale)}</h3><p>{t(a.excerpt, locale)}</p></a>)}</div> : <p className={styles.journalNote}>{copy('Stories are taking shape. New notes will appear here.', 'داستان‌ها در حال شکل‌گرفتن‌اند. یادداشت‌های تازه اینجا منتشر می‌شوند.')}</p>}
+        {journalArticles.length ? <div className={styles.journalGrid}>{journalArticles.map(a => <Link href={a.url.replace(/^\/en(?=\/|$)/, `/${locale}`)} key={a.id} data-reveal><img src={a.image} alt={a.imageAlt ? t(a.imageAlt, locale) : ''} width={1536} height={1024} loading="lazy" decoding="async" /><div className={styles.journalCategory}><small>{t(a.category, locale)}</small>{a.icon && <JournalIcon kind={a.icon} />}</div><h3>{t(a.title, locale)}</h3><p>{t(a.excerpt, locale)}</p></Link>)}</div> : <p className={styles.journalNote}>{copy('Stories are taking shape. New notes will appear here.', 'داستان‌ها در حال شکل‌گرفتن‌اند. یادداشت‌های تازه اینجا منتشر می‌شوند.')}</p>}
       </section>
     </EditorialMotion>
   </main>;
