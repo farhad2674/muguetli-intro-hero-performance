@@ -30,7 +30,7 @@ export function EditorialMotion({ children, locale = 'en' }: { children: React.R
         root.querySelectorAll('[data-ribbon]').forEach(section => {
           const line = section.querySelector<HTMLElement>('[data-ribbon-line]');
           if (!line) return;
-          const direction = locale === 'fa' ? 1 : -1;
+          const direction = -1;
           gsap.fromTo(line, { x: 0 }, { x: () => direction * Math.min(line.scrollWidth / 2, innerWidth * .8), ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true } });
         });
         root.querySelectorAll<HTMLElement>('[data-reveal]').forEach(el => {
